@@ -68,7 +68,7 @@ body {
 
 /* Significantly increased logo sizes */
 .logo-image {
-    height: 55px; /* Mobile - 55px height */
+    height: 80px !important; /* Super large for mobile - 65px height */
     width: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.4));
@@ -7384,7 +7384,8 @@ const nysaMartData = {
     whatsappNumber: "7869809022",
     currency: "₹",
     themeColor: "#FFD700",
-    secondaryColor: "#000000"
+    secondaryColor: "#000000",
+    accentColor: "#3a86ff"
   },
   categories: [
     "Grocery",
@@ -7460,7 +7461,8 @@ const nysaMartData = {
         tags: ["cooking oil", "sunflower oil", "fortune", "5 litre"],
         deliveryTime: "Next day delivery",
         returnPolicy: "7 days replacement",
-        expiryDate: "12/2024"
+        expiryDate: "12/2024",
+        bulkDiscount: "15% OFF on 10+ units"
       }
     },
     {
@@ -7524,10 +7526,10 @@ const nysaMartData = {
         tags: ["toor dal", "arhar dal", "tata sampann", "5kg"],
         deliveryTime: "Same day delivery",
         returnPolicy: "7 days replacement",
-        expiryDate: "10/2024"
+        expiryDate: "10/2024",
+        bulkDiscount: "20% OFF on 20+ units"
       }
     },
-    
     // Vegetables
     {
       category: "Vegetables",
@@ -7569,7 +7571,8 @@ const nysaMartData = {
         tags: ["potato", "fresh vegetables", "25kg", "aloo"],
         deliveryTime: "Same day delivery",
         returnPolicy: "No returns on fresh produce",
-        expiryDate: "1 month from delivery"
+        expiryDate: "1 month from delivery",
+        bulkDiscount: "5% OFF on 5+ sacks"
       }
     }
   ]
@@ -7597,139 +7600,191 @@ function showMartOverlay() {
   const categories = ['All', ...new Set(nysaMartData.categories)];
 
   overlay.innerHTML = `
-    <div class="mart-content">
+    <div class="mart-container">
+      <!-- Enhanced Header with Search Integrated -->
       <div class="mart-header">
-        <div class="header-left">
-          <h2>Mart</h2>
-          <div class="waist-summary" onclick="showWaist()">
-            <i class="fas fa-shopping-basket"></i>
-            <span class="waist-count">${procurementWaist.entries.reduce((acc, entry) => acc + entry.measurement, 0)}</span>
-            <span class="waist-subtotal">${procurementWaist.currency}${procurementWaist.subtotal.toFixed(2)}</span>
-          </div>
-        </div>
-        <div class="header-actions">
-          <button class="toggle-filters" onclick="toggleAdvancedFilters()">
-            <i class="fas fa-sliders-h"></i>
-          </button>
-          <button class="close-mart" onclick="hideMartOverlay()">
-            <i class="fas fa-times"></i>
+        <button class="back-button" onclick="hideMartOverlay()">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="search-container">
+          <input type="text" id="martSearchInput" placeholder="Search for products..." />
+          <button class="voice-search" id="martVoiceSearchButton">
+            <i class="fas fa-microphone"></i>
           </button>
         </div>
+        <button class="cart-button" onclick="showWaist()">
+          <i class="fas fa-shopping-basket"></i>
+          <span class="cart-count">${procurementWaist.entries.reduce((acc, entry) => acc + entry.measurement, 0)}</span>
+        </button>
       </div>
       
-      <div class="mart-filter-container">
-        <div class="mart-filter-buttons">
+      <!-- Categories Tabs with Scroll -->
+      <div class="categories-scroll-container">
+        <div class="categories-tabs">
           ${categories.map(category => `
-            <button 
-              class="filter-button ${category === 'All' ? 'active' : ''}" 
-              data-category="${category}" 
-              onclick="filterCommodities('${category}')"
-            >
+            <button class="category-tab ${category === 'All' ? 'active' : ''}" 
+                    onclick="filterCommodities('${category}')">
               ${category}
             </button>
           `).join('')}
         </div>
       </div>
-
-      <div class="commodities-grid" id="commoditiesGrid">
-        ${renderCommodityCards(nysaMartData.commodities)}
+      
+      <!-- Commodities Grid with Loading Skeleton -->
+      <div class="commodities-container">
+        <div class="commodities-header">
+          <h3>Featured Products</h3>
+          <button class="filter-button" onclick="toggleAdvancedFilters()">
+            <i class="fas fa-sliders-h"></i> Filters
+          </button>
+        </div>
+        
+        <div class="commodities-grid" id="commoditiesGrid">
+          ${renderCommodityCards(nysaMartData.commodities)}
+        </div>
       </div>
-    </div>
-
-    <div class="mart-search-container">
-      <div class="input-container">
-        <input type="text" id="martSearchInput" placeholder="Search for commodities, brands, or categories..." />
-        <button class="voice-search" id="martVoiceSearchButton">
-          <i class="fas fa-microphone"></i>
-        </button>
+      
+      <!-- Floating Action Button for Cart -->
+      <div class="fab-cart" onclick="showWaist()">
+        <i class="fas fa-shopping-basket"></i>
+        <span class="fab-count">${procurementWaist.entries.reduce((acc, entry) => acc + entry.measurement, 0)}</span>
       </div>
     </div>
     
+    <!-- Enhanced Filters Panel -->
     <div class="advanced-filters" id="advancedFilters">
-      <div class="filter-section">
-        <h4>Price Range</h4>
-        <div class="price-range">
-          <input type="range" min="0" max="5000" value="0" step="100" id="priceMin">
-          <input type="range" min="0" max="5000" value="5000" step="100" id="priceMax">
-          <div class="price-values">
-            <span id="minPriceValue">${nysaMartData.settings.currency}0</span> - 
-            <span id="maxPriceValue">${nysaMartData.settings.currency}5000+</span>
+      <div class="filters-header">
+        <h3>Filters</h3>
+        <button class="close-filters" onclick="toggleAdvancedFilters()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="filters-content">
+        <div class="filter-section">
+          <h4>Price Range (${nysaMartData.settings.currency})</h4>
+          <div class="price-range-container">
+            <div class="price-inputs">
+              <input type="number" id="priceMinInput" placeholder="Min" min="0" max="5000">
+              <span>-</span>
+              <input type="number" id="priceMaxInput" placeholder="Max" min="0" max="5000">
+            </div>
+            <div class="price-range-slider">
+              <input type="range" min="0" max="5000" value="0" step="100" id="priceMin">
+              <input type="range" min="0" max="5000" value="5000" step="100" id="priceMax">
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-section">
+          <h4>Discount</h4>
+          <div class="filter-options">
+            <label class="filter-option">
+              <input type="checkbox" name="discount" value="10" checked>
+              <span class="checkmark"></span>
+              <span>10% or more</span>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" name="discount" value="20" checked>
+              <span class="checkmark"></span>
+              <span>20% or more</span>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" name="discount" value="30">
+              <span class="checkmark"></span>
+              <span>30% or more</span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="filter-section">
+          <h4>Availability</h4>
+          <div class="filter-options">
+            <label class="filter-option">
+              <input type="checkbox" name="availability" value="in-stock" checked>
+              <span class="checkmark"></span>
+              <span>In Stock</span>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" name="availability" value="low-stock">
+              <span class="checkmark"></span>
+              <span>Low Stock</span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="filter-section">
+          <h4>Categories</h4>
+          <div class="filter-options">
+            ${categories.filter(c => c !== 'All').map(category => `
+              <label class="filter-option">
+                <input type="checkbox" name="category" value="${category}" checked>
+                <span class="checkmark"></span>
+                <span>${category}</span>
+              </label>
+            `).join('')}
           </div>
         </div>
       </div>
       
-      <div class="filter-section">
-        <h4>Discount</h4>
-        <div class="filter-options">
-          <label><input type="checkbox" name="discount" value="10" checked> 10% & above</label>
-          <label><input type="checkbox" name="discount" value="20" checked> 20% & above</label>
-          <label><input type="checkbox" name="discount" value="30" checked> 30% & above</label>
-          <label><input type="checkbox" name="discount" value="40" checked> 40% & above</label>
-        </div>
-      </div>
-      
-      <div class="filter-section">
-        <h4>Availability</h4>
-        <div class="filter-options">
-          <label><input type="checkbox" name="availability" value="in-stock" checked> In Stock</label>
-          <label><input type="checkbox" name="availability" value="low-stock"> Low Stock</label>
-        </div>
-      </div>
-      
-      <div class="filter-actions">
+      <div class="filters-footer">
+        <button class="reset-filters" onclick="resetFilters()">Reset All</button>
         <button class="apply-filters" onclick="applyAdvancedFilters()">Apply Filters</button>
-        <button class="reset-filters" onclick="resetFilters()">Reset</button>
       </div>
     </div>
   `;
 
+  // Initialize functionality
   const searchInput = document.getElementById('martSearchInput');
   const commoditiesGrid = document.getElementById('commoditiesGrid');
-  const filterButtons = document.querySelectorAll('.filter-button');
-
+  
   const debouncedSearch = debounce((query) => {
-    performMartSearch(nysaMartData.commodities, query, commoditiesGrid, filterButtons, renderCommodityCards);
+    performMartSearch(nysaMartData.commodities, query, commoditiesGrid, renderCommodityCards);
   }, 300);
 
   searchInput.addEventListener('input', (e) => {
     debouncedSearch(e.target.value);
   });
 
-  searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      performMartSearch(nysaMartData.commodities, searchInput.value, commoditiesGrid, filterButtons, renderCommodityCards);
-    }
-  });
-
   initializeMartVoiceSearch(searchInput, (query) => {
-    performMartSearch(nysaMartData.commodities, query, commoditiesGrid, filterButtons, renderCommodityCards);
+    performMartSearch(nysaMartData.commodities, query, commoditiesGrid, renderCommodityCards);
   });
 
-  // Initialize price range display
+  // Price range functionality
   const priceMin = document.getElementById('priceMin');
   const priceMax = document.getElementById('priceMax');
-  const minPriceValue = document.getElementById('minPriceValue');
-  const maxPriceValue = document.getElementById('maxPriceValue');
+  const priceMinInput = document.getElementById('priceMinInput');
+  const priceMaxInput = document.getElementById('priceMaxInput');
 
   priceMin.addEventListener('input', () => {
-    minPriceValue.textContent = `${nysaMartData.settings.currency}${priceMin.value}`;
+    priceMinInput.value = priceMin.value;
   });
 
   priceMax.addEventListener('input', () => {
-    maxPriceValue.textContent = `${nysaMartData.settings.currency}${priceMax.value}+`;
+    priceMaxInput.value = priceMax.value;
+  });
+
+  priceMinInput.addEventListener('input', () => {
+    priceMin.value = priceMinInput.value;
+  });
+
+  priceMaxInput.addEventListener('input', () => {
+    priceMax.value = priceMaxInput.value;
   });
 
   setTimeout(() => overlay.classList.add('active'), 10);
 
+  // Add styles
   const style = document.createElement('style');
   style.textContent = `
+    /* Base Styles */
     .mart-overlay {
       position: fixed;
-      top: 60px;
+      top: 0;
       left: 0;
       right: 0;
-      bottom: 60px;
-      background: #f8f9fa;
+      bottom: 0;
+      background: #ffffff;
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
@@ -7740,6 +7795,7 @@ function showMartOverlay() {
       flex-direction: column;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
     .mart-overlay::-webkit-scrollbar {
@@ -7751,850 +7807,733 @@ function showMartOverlay() {
       visibility: visible;
     }
 
-    .mart-content {
+    .mart-container {
       flex: 1;
       width: 100%;
       max-width: 1200px;
-      padding: 20px;
       margin: 0 auto;
-      position: relative;
-    }
-
-    .mart-header {
-      padding: 16px 24px;
-      background: #fff;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      z-index: 30;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .mart-header h2 {
-      color: ${nysaMartData.settings.secondaryColor};
-      margin: 0;
-      font-size: 1.75em;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .waist-summary {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: ${nysaMartData.settings.themeColor}20;
-      padding: 8px 16px;
-      border-radius: 24px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: 1px solid ${nysaMartData.settings.themeColor}40;
-      position: relative;
-      min-width: 120px;
-      justify-content: center;
-    }
-
-    .waist-summary:hover {
-      background: ${nysaMartData.settings.themeColor}30;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .waist-count {
-      background: ${nysaMartData.settings.secondaryColor};
-      color: white;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8em;
-      font-weight: bold;
-      position: absolute;
-      left: -8px;
-      top: -8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .waist-subtotal {
-      font-weight: 600;
-      color: ${nysaMartData.settings.secondaryColor};
-      font-size: 0.95em;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .mart-header h2::before {
-      content: '';
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      background: ${nysaMartData.settings.secondaryColor};
-      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z'%3E%3C/path%3E%3Cline x1='3' y1='6' x2='21' y2='6'%3E%3C/line%3E%3Cpath d='M16 10a4 4 0 0 1-8 0'%3E%3C/path%3E%3C/svg%3E");
-      mask-repeat: no-repeat;
-      mask-position: center;
-      mask-size: contain;
-    }
-
-    .close-mart {
-      background: rgba(0, 0, 0, 0.1);
-      border: none;
-      color: ${nysaMartData.settings.secondaryColor};
-      font-size: 1em;
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .close-mart:hover {
-      background: rgba(0, 0, 0, 0.2);
-      transform: scale(1.05);
-    }
-
-    .close-mart:active {
-      transform: scale(0.95);
-    }
-
-    .mart-filter-container {
-      position: fixed;
-      top: 72px;
-      left: 0;
-      right: 0;
-      width: 100%;
-      z-index: 10;
-      background: #fff;
-      padding: 12px 0;
-      box-sizing: border-box;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .mart-filter-container::-webkit-scrollbar {
-      display: none;
-    }
-
-    .mart-filter-buttons {
-      display: inline-flex;
-      padding: 0 16px;
-      gap: 8px;
-      white-space: nowrap;
-    }
-
-    .filter-button {
-      font-family: poppins;
-      flex-shrink: 0;
-      background: #f0f2f5;
-      color: ${nysaMartData.settings.secondaryColor};
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 10px 20px;
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin: 0;
-    }
-
-    .filter-button:hover {
-      background: #e4e6eb;
-      transform: scale(1.03);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .filter-button.active {
-      background: ${nysaMartData.settings.secondaryColor};
-      color: #fff;
-      font-weight: 600;
-      border-color: ${nysaMartData.settings.secondaryColor};
-      box-shadow: 0 4px 10px ${nysaMartData.settings.secondaryColor}30;
-    }
-
-    /* Add some space at the end for better scrolling */
-    .mart-filter-buttons::after {
-      content: '';
-      display: block;
-      min-width: 16px;
-      height: 1px;
-    }
-
-    .toggle-filters {
-      background: ${nysaMartData.settings.secondaryColor};
-      border: 1px solid ${nysaMartData.settings.secondaryColor};
-      color: white;
-      font-size: 0.9em;
-      cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .toggle-filters:hover {
-      background: ${nysaMartData.settings.themeColor};
-      transform: translateY(-1px);
-    }
-
-    .toggle-filters:active {
-      transform: translateY(0);
-    }
-
-    .commodities-grid {
-      margin-top: 140px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
-      animation: fadeInUp 0.5s ease-out;
-      padding-bottom: 140px;
-      width: 100%;
-    }
-
-    .commodity-card {
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      cursor: pointer;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
       position: relative;
       display: flex;
       flex-direction: column;
       height: 100%;
+      background: #f5f5f5;
+    }
+
+    /* Enhanced Header Styles */
+    .mart-header {
+      padding: 12px 16px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .back-button {
+      background: transparent;
+      border: none;
+      color: ${nysaMartData.settings.secondaryColor};
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .search-container {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    #martSearchInput {
+      flex: 1;
+      background: #f5f5f5;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 16px;
+      padding-right: 40px;
+      color: ${nysaMartData.settings.secondaryColor};
+      font-size: 14px;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    #martSearchInput:focus {
+      outline: none;
+      background: #e0e0e0;
+      box-shadow: 0 0 0 2px ${nysaMartData.settings.themeColor}40;
+    }
+
+    .voice-search {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .cart-button {
+      background: transparent;
+      border: none;
+      color: ${nysaMartData.settings.secondaryColor};
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: ${nysaMartData.settings.themeColor};
+      color: ${nysaMartData.settings.secondaryColor};
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    /* Categories Scroll */
+    .categories-scroll-container {
+      padding: 8px 0;
+      background: #ffffff;
+      position: sticky;
+      top: 60px;
+      z-index: 90;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .categories-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 0 16px 8px;
+    }
+
+    .categories-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-tab {
+      flex-shrink: 0;
+      background: #f5f5f5;
+      color: ${nysaMartData.settings.secondaryColor};
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .category-tab:hover {
+      background: #e0e0e0;
+    }
+
+    .category-tab.active {
+      background: ${nysaMartData.settings.themeColor};
+      color: ${nysaMartData.settings.secondaryColor};
+      font-weight: 600;
+      box-shadow: 0 2px 8px ${nysaMartData.settings.themeColor}80;
+    }
+
+    /* Commodities Container */
+    .commodities-container {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .commodities-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .commodities-header h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: ${nysaMartData.settings.secondaryColor};
+    }
+
+    .filter-button {
+      background: transparent;
+      border: 1px solid #e0e0e0;
+      color: ${nysaMartData.settings.secondaryColor};
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .filter-button:hover {
+      background: #f0f0f0;
+    }
+
+    /* Commodities Grid */
+    .commodities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    /* Enhanced Commodity Card */
+    .commodity-card {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border: 1px solid #f0f0f0;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      position: relative;
     }
 
     .commodity-card:hover {
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
-      border-color: ${nysaMartData.settings.themeColor}80;
-      transform: translateY(-8px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
     }
 
     .commodity-image-container {
       position: relative;
       width: 100%;
-      height: 220px;
+      height: 0;
+      padding-bottom: 100%;
       overflow: hidden;
+      background: #f9f9f9;
     }
 
     .commodity-image {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .commodity-card:hover .commodity-image {
-      transform: scale(1.08);
+      object-fit: contain;
+      transition: transform 0.3s ease;
     }
 
     .commodity-badge {
       position: absolute;
-      top: 12px;
-      left: 12px;
-      background: #ff6b6b;
+      top: 8px;
+      left: 8px;
+      background: #e53935;
       color: white;
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 0.75em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      z-index: 2;
     }
 
     .commodity-discount {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      background:  #FFD700;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 0.75em;
+      top: 8px;
+      right: 8px;
+      background: ${nysaMartData.settings.themeColor};
+      color: ${nysaMartData.settings.secondaryColor};
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      z-index: 2;
     }
 
     .commodity-content {
-      padding: 20px;
-      flex: 1;
+      padding: 12px;
       display: flex;
       flex-direction: column;
     }
 
-    .commodity-category {
-      display: inline-block;
-      color: #6c757d;
-      font-size: 0.8em;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
     .commodity-title {
-      font-size: 1.2em;
-      font-weight: 600;
-      margin: 0 0 10px 0;
+      font-size: 13px;
+      font-weight: 500;
+      margin: 0 0 4px 0;
       color: ${nysaMartData.settings.secondaryColor};
       line-height: 1.3;
-      height: 3.2em;
+      height: 2.6em;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      flex: 1;
     }
 
     .commodity-brand {
-      font-size: 0.95em;
-      color: #6c757d;
-      margin: 0 0 12px 0;
-      font-weight: 500;
+      font-size: 11px;
+      color: #666;
+      margin: 0 0 8px 0;
     }
 
     .commodity-price-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
+      margin-bottom: 8px;
     }
 
     .commodity-price {
-      font-size: 1.3em;
+      font-size: 14px;
+      font-weight: 600;
       color: ${nysaMartData.settings.secondaryColor};
-      font-weight: 700;
     }
 
     .commodity-mrp {
-      font-size: 1em;
-      color: #6c757d;
+      font-size: 11px;
+      color: #999;
       text-decoration: line-through;
+      margin-left: 4px;
     }
 
     .commodity-unit {
-      font-size: 0.85em;
-      color: #6c757d;
-      background: #f1f3f5;
-      padding: 3px 8px;
-      border-radius: 4px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 4px;
     }
 
     .commodity-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.85em;
-      color: #6c757d;
-      border-top: 1px solid rgba(0, 0, 0, 0.05);
-      padding-top: 15px;
-      margin-top: auto;
+      font-size: 11px;
+      color: #666;
+      margin-top: 8px;
     }
 
     .commodity-stock {
-      color: #28a745;
+      color: #4caf50;
       font-weight: 500;
     }
 
-    .commodity-min-qty {
-      color: ${nysaMartData.settings.secondaryColor};
-      font-weight: 500;
+    .commodity-rating {
+      color: ${nysaMartData.settings.themeColor};
+      font-size: 11px;
     }
 
     .commodity-actions {
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
     .bag-it-btn {
       background: ${nysaMartData.settings.themeColor};
       color: ${nysaMartData.settings.secondaryColor};
       border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 8px;
+      border-radius: 6px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      font-size: 0.95em;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      gap: 6px;
+      font-size: 12px;
       width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .bag-it-btn:hover {
-      background: ${nysaMartData.settings.themeColor};
       opacity: 0.9;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px ${nysaMartData.settings.themeColor}80;
     }
 
-    .bag-it-btn i {
-      font-size: 0.9em;
-    }
-
-    .mart-search-container {
+    /* FAB Cart */
+    .fab-cart {
       position: fixed;
-      bottom: 0px;
-      left: 0;
-      right: 0;
-      width: 100%;
-      max-width: 100%;
-      z-index: 1000;
-      padding: 20px;
-      background: #fff;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: center;
-      box-sizing: border-box;
-    }
-
-    .input-container {
-      flex: 1;
-      position: relative;
-      display: flex;
-      align-items: center;
-      width: 100%;
-      max-width: 800px;
-    }
-
-    #martSearchInput {
-      flex: 1;
-      background: #fff;
-      border: 1px solid ${nysaMartData.settings.themeColor}80;
-      border-radius: 12px;
-      padding: 12px 50px 12px 20px;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: ${nysaMartData.settings.themeColor};
       color: ${nysaMartData.settings.secondaryColor};
-      font-size: 0.95em;
-      width: 100%;
-      transition: border-color 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    #martSearchInput:focus {
-      border-color: ${nysaMartData.settings.themeColor};
-      outline: none;
-    }
-
-    .voice-search {
-      position: absolute;
-      right: 10px;
-      background: none;
-      border: none;
-      color: ${nysaMartData.settings.themeColor};
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
       cursor: pointer;
-      padding: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      z-index: 50;
       transition: all 0.3s ease;
     }
 
-    .voice-search:hover {
-      opacity: 0.8;
+    .fab-cart:hover {
+      transform: scale(1.1);
     }
 
-    .voice-search.active {
-      color: ${nysaMartData.settings.themeColor};
-      animation: pulse 1.5s infinite;
+    .fab-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #e53935;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
     }
 
-    .voice-search i { 
-      font-size: 1.5em; 
-    }
-
+    /* Enhanced Advanced Filters */
     .advanced-filters {
       position: fixed;
-      bottom: 100px;
-      left: 0;
+      top: 0;
       right: 0;
-      background: #fff;
-      padding: 20px;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-      z-index: 999;
-      max-height: 60vh;
-      overflow-y: auto;
-      box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+      bottom: 0;
+      width: 100%;
+      max-width: 380px;
+      background: #ffffff;
+      z-index: 2000;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     }
 
     .advanced-filters.active {
-      transform: translateY(0);
+      transform: translateX(0);
+    }
+
+    .filters-header {
+      padding: 20px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: ${nysaMartData.settings.themeColor}10;
+    }
+
+    .filters-header h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: ${nysaMartData.settings.secondaryColor};
+    }
+
+    .close-filters {
+      background: transparent;
+      border: none;
+      color: #666;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .close-filters:hover {
+      color: ${nysaMartData.settings.secondaryColor};
+      transform: rotate(90deg);
+    }
+
+    .filters-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
     }
 
     .filter-section {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .filter-section h4 {
+      margin: 0 0 16px 0;
+      font-size: 16px;
+      font-weight: 600;
       color: ${nysaMartData.settings.secondaryColor};
-      margin-bottom: 12px;
-      font-size: 1em;
+    }
+
+    .price-range-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .price-inputs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .price-inputs input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .price-inputs input:focus {
+      border-color: ${nysaMartData.settings.themeColor};
+      box-shadow: 0 0 0 2px ${nysaMartData.settings.themeColor}40;
+    }
+
+    .price-range-slider {
+      padding: 0 8px;
+    }
+
+    .price-range-slider input[type="range"] {
+      width: 100%;
+      margin: 12px 0;
+      -webkit-appearance: none;
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+    }
+
+    .price-range-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      background: ${nysaMartData.settings.themeColor};
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+    }
+
+    .price-range-slider input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
     }
 
     .filter-options {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 12px;
     }
 
-    .filter-options label {
+    .filter-option {
       display: flex;
       align-items: center;
-      gap: 6px;
-      color: ${nysaMartData.settings.secondaryColor};
-      font-size: 0.9em;
+      gap: 12px;
       cursor: pointer;
+      font-size: 14px;
+      color: ${nysaMartData.settings.secondaryColor};
+      padding: 8px 0;
     }
 
-    .filter-options input[type="checkbox"] {
+    .filter-option input {
+      width: 18px;
+      height: 18px;
       accent-color: ${nysaMartData.settings.themeColor};
     }
 
-    .price-range {
-      padding: 0 10px;
+    .checkmark {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #e0e0e0;
+      border-radius: 4px;
+      position: relative;
+      transition: all 0.2s ease;
     }
 
-    .price-range input[type="range"] {
-      width: 100%;
-      margin: 10px 0;
-      -webkit-appearance: none;
-      height: 4px;
-      background: #e9ecef;
-      border-radius: 2px;
-    }
-
-    .price-range input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
+    .filter-option input:checked ~ .checkmark {
       background: ${nysaMartData.settings.themeColor};
-      border-radius: 50%;
-      cursor: pointer;
+      border-color: ${nysaMartData.settings.themeColor};
     }
 
-    .price-values {
-      display: flex;
-      justify-content: space-between;
+    .filter-option input:checked ~ .checkmark:after {
+      content: "✓";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       color: ${nysaMartData.settings.secondaryColor};
-      font-size: 0.9em;
+      font-size: 12px;
     }
 
-    .filter-actions {
+    .filters-footer {
+      padding: 16px;
+      border-top: 1px solid #f0f0f0;
       display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 20px;
+      gap: 12px;
+      background: #f9f9f9;
     }
 
-    .apply-filters, .reset-filters {
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-weight: 500;
+    .reset-filters, .apply-filters {
+      flex: 1;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .apply-filters {
-      background: ${nysaMartData.settings.themeColor};
-      color: ${nysaMartData.settings.secondaryColor};
-      border: none;
-    }
-
-    .apply-filters:hover {
-      background: ${nysaMartData.settings.themeColor};
-      opacity: 0.9;
+      font-size: 15px;
+      transition: all 0.2s ease;
     }
 
     .reset-filters {
       background: transparent;
       color: ${nysaMartData.settings.themeColor};
-      border: 1px solid ${nysaMartData.settings.themeColor};
+      border: 2px solid ${nysaMartData.settings.themeColor};
     }
 
     .reset-filters:hover {
       background: ${nysaMartData.settings.themeColor}10;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+    .apply-filters {
+      background: ${nysaMartData.settings.themeColor};
+      color: ${nysaMartData.settings.secondaryColor};
+      border: none;
+      box-shadow: 0 2px 8px ${nysaMartData.settings.themeColor}80;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .commodities-grid {
-        grid-template-columns: 1fr;
-        padding: 0 10px;
-        margin-top: 140px;
-        gap: 20px;
-      }
-
-      .commodity-card {
-        width: 100%;
-        margin: 0;
-      }
-
-      .commodity-image-container {
-        height: 200px;
-      }
-
-      .mart-content {
-        padding: 10px 0;
-        padding-bottom: 200px;
-      }
-
-      #martSearchInput {
-        padding: 20px 20px;
-      }
-      
-      .advanced-filters {
-        padding: 15px;
-      }
-      
-      .filter-options {
-        gap: 8px;
-      }
+    .apply-filters:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
     }
 
-    @media (min-width: 769px) {
-      .mart-search-container {
-        padding: 24px;
-        bottom: 0px;
-      }
-
-      .input-container {
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      #martSearchInput {
-        height: 70px;
-        font-size: 1.05rem;
-        padding: 0 50px 0 24px;
-        border-radius: 16px;
-      }
-
-      .voice-search {
-        width: 50px;
-        height: 50px;
-        right: 8px;
-      }
-
-      .voice-search i {
-        font-size: 1.7em;
-      }
-
-      .commodities-grid {
-        padding-bottom: 180px;
-      }
-      
-      .advanced-filters {
-        padding: 30px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-      }
-      
-      .filter-actions {
-        grid-column: 1 / -1;
-      }
-    }
-
-    /* ===== Laptop & Desktop (1025px+) - Compact Version ===== */
-    @media (min-width: 1025px) {
-      .commodities-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 20px;
-        padding-bottom: 140px;
-      }
-
-      .commodity-card {
-        border-radius: 14px;
-      }
-
-      .commodity-image-container {
-        height: 240px;
-      }
-
-      .commodity-content {
-        padding: 18px;
-      }
-
-      .commodity-title {
-        font-size: 1.1em;
-        margin-bottom: 8px;
-      }
-
-      .commodity-brand {
-        font-size: 0.9em;
-        margin-bottom: 8px;
-      }
-
-      .commodity-price-container {
-        margin-bottom: 12px;
-      }
-
-      .commodity-price {
-        font-size: 1.2em;
-      }
-
-      .commodity-mrp {
-        font-size: 0.95em;
-      }
-
-      .commodity-meta {
-        font-size: 0.85em;
-      }
-
-      .bag-it-btn {
-        padding: 10px 16px;
-        font-size: 0.9em;
-      }
-    }
-
-    /* No Results State - Desktop Optimized */
+    /* No Results State */
     .no-results {
       text-align: center;
-      padding: 4rem 2rem;
-      width: 100%;
-      max-width: 680px;
-      margin: 0 auto;
-      box-sizing: border-box;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      padding: 60px 20px;
+      grid-column: 1 / -1;
     }
 
     .no-results-icon {
-      font-size: 3.5rem;
-      color: ${nysaMartData.settings.secondaryColor};
-      margin-bottom: 1.5rem;
+      font-size: 48px;
+      color: #e0e0e0;
+      margin-bottom: 16px;
     }
 
     .no-results h3 {
-      font-size: 1.75rem;
+      margin: 0 0 8px 0;
+      font-size: 18px;
       color: ${nysaMartData.settings.secondaryColor};
-      margin-bottom: 1rem;
-      line-height: 1.3;
       font-weight: 600;
     }
 
     .no-results p {
-      color: #6c757d;
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-
-    /* Suggestions - Desktop Optimized */
-    .suggestions {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-top: 1.5rem;
-      width: 100%;
-      box-sizing: border-box;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .suggestions p {
-      font-weight: 500;
-      margin-bottom: 1rem;
-      color: ${nysaMartData.settings.secondaryColor};
-      font-size: 1rem;
-    }
-
-    .suggestions ul {
-      list-style: none;
-      padding: 0;
       margin: 0;
+      color: #666;
+      font-size: 14px;
     }
 
-    .suggestions li {
-      padding: 1rem 1.25rem;
-      margin-bottom: 0.75rem;
-      background: #f8f9fa;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      color: ${nysaMartData.settings.secondaryColor};
-      font-size: 0.95rem;
+    /* Loading Skeleton */
+    .skeleton-card {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
-    .suggestions li:hover {
-      background: #e9ecef;
-      transform: translateY(-2px);
+    .skeleton-image {
+      width: 100%;
+      height: 0;
+      padding-bottom: 100%;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
     }
 
-    .suggestions li:last-child {
-      margin-bottom: 0;
+    .skeleton-content {
+      padding: 12px;
     }
 
-    /* Responsive fallbacks */
-    @media (max-width: 1024px) {
-      .no-results {
-        position: static;
-        transform: none;
-        padding: 3rem 2rem;
-        margin: 2rem auto;
+    .skeleton-line {
+      height: 12px;
+      background: #f0f0f0;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .skeleton-line.short {
+      width: 60%;
+    }
+
+    .skeleton-line.medium {
+      width: 80%;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
       }
     }
 
-    @media (max-width: 768px) {
-      .no-results {
-        padding: 2rem 1.5rem;
+    /* Responsive Design */
+    @media (min-width: 480px) {
+      .commodities-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
       }
       
-      .no-results-icon {
-        font-size: 2.5rem;
+      .commodity-title {
+        font-size: 14px;
       }
       
-      .no-results h3 {
-        font-size: 1.25rem;
+      .commodity-price {
+        font-size: 15px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .mart-header {
+        padding: 16px 24px;
       }
       
-      .no-results p {
-        font-size: 0.9rem;
+      .categories-tabs {
+        padding: 0 24px 8px;
+      }
+      
+      .commodities-container {
+        padding: 24px;
+      }
+      
+      .commodities-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      
+      .commodity-card {
+        border-radius: 14px;
+      }
+      
+      .advanced-filters {
+        max-width: 400px;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .commodities-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .commodities-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 24px;
       }
     }
   `;
@@ -8602,34 +8541,46 @@ function showMartOverlay() {
 }
 
 function renderCommodityCards(filteredData) {
-  return filteredData.map(commodity => `
-    <div class="commodity-card" onclick="openCommodityDetail('${commodity.category}', '${commodity.details.id}')">
-      <div class="commodity-image-container">
-        <img src="${commodity.details.images[0]}" alt="${commodity.details.title}" class="commodity-image">
-        ${commodity.details.stock < 10 ? `<span class="commodity-badge">Limited Stock</span>` : ''}
-        ${commodity.details.discount ? `<span class="commodity-discount">${commodity.details.discount}</span>` : ''}
+  return filteredData.length > 0 ? 
+    filteredData.map(commodity => `
+      <div class="commodity-card" onclick="openCommodityDetail('${commodity.category}', '${commodity.details.id}')">
+        <div class="commodity-image-container">
+          <img src="${commodity.details.images[0]}" alt="${commodity.details.title}" class="commodity-image" loading="lazy">
+          ${commodity.details.stock < 10 ? `<span class="commodity-badge">Limited</span>` : ''}
+          ${commodity.details.discount ? `<span class="commodity-discount">${commodity.details.discount}</span>` : ''}
+        </div>
+        <div class="commodity-content">
+          <h3 class="commodity-title">${commodity.details.title}</h3>
+          <p class="commodity-brand">${commodity.details.brand}</p>
+          <div class="commodity-price-container">
+            <span class="commodity-price">${nysaMartData.settings.currency}${commodity.details.price}</span>
+            <span class="commodity-mrp">${nysaMartData.settings.currency}${commodity.details.mrp}</span>
+            <p class="commodity-unit">Min: ${commodity.details.minQuantity} ${commodity.details.unit}</p>
+          </div>
+          <div class="commodity-meta">
+            <span class="commodity-stock">${commodity.details.stock} in stock</span>
+            <span class="commodity-rating">
+              ${'<i class="fas fa-star"></i>'.repeat(Math.floor(commodity.details.rating))}
+              ${'<i class="far fa-star"></i>'.repeat(5 - Math.ceil(commodity.details.rating))}
+            </span>
+          </div>
+          <div class="commodity-actions">
+            <button class="bag-it-btn" onclick="event.stopPropagation(); addToProcurementWaist('${commodity.category}', '${commodity.details.id}', event)">
+              <i class="fas fa-shopping-bag"></i> Add
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="commodity-content">
-        <div class="commodity-category">${commodity.category}</div>
-        <h3 class="commodity-title">${commodity.details.title}</h3>
-        <p class="commodity-brand">${commodity.details.brand}</p>
-        <div class="commodity-price-container">
-          <span class="commodity-price">${nysaMartData.settings.currency}${commodity.details.price}</span>
-          <span class="commodity-mrp">${nysaMartData.settings.currency}${commodity.details.mrp}</span>
-          <span class="commodity-unit">/ ${commodity.details.minQuantity} ${commodity.details.unit}</span>
-        </div>
-        <div class="commodity-meta">
-          <span class="commodity-stock">Available: ${commodity.details.stock}</span>
-          <span class="commodity-min-qty">Min: ${commodity.details.minQuantity}</span>
-        </div>
-        <div class="commodity-actions">
-          <button class="bag-it-btn" onclick="addToProcurementWaist('${commodity.category}', '${commodity.details.id}', event)">
-            <i class="fas fa-shopping-bag"></i> Bag It
-          </button>
-        </div>
+    `).join('') : 
+    `
+    <div class="no-results">
+      <div class="no-results-icon">
+        <i class="fas fa-box-open"></i>
       </div>
+      <h3>No Products Found</h3>
+      <p>Try adjusting your search or filters</p>
     </div>
-  `).join('');
+    `;
 }
 
 function openCommodityDetail(category, commodityId) {
@@ -8769,497 +8720,512 @@ function changeCommodityImage(src, element) {
 function addCommodityDetailStyles() {
   const style = document.createElement('style');
   style.textContent = `
-.commodity-detail-page {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #f8f9fa;
-  z-index: 2000;
-  overflow-y: auto;
-  color: ${nysaMartData.settings.secondaryColor};
-  font-family: poppins;
-  line-height: 1.6;
-}
+    .commodity-detail-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #f8f9fa;
+      z-index: 2000;
+      overflow-y: auto;
+      color: ${nysaMartData.settings.secondaryColor};
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
 
-.commodity-detail-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px 20px;
-  background: transparent;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.3s ease;
-}
+    .commodity-detail-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px 20px;
+      background: transparent;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
 
-.commodity-detail-header.scrolled {
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
+    .commodity-detail-header.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
 
-.back-button {
-  background: rgba(0, 0, 0, 0.7);
-  border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
+    .back-button {
+      background: rgba(0, 0, 0, 0.7);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
 
-.commodity-detail-header.scrolled .back-button {
-  background: rgba(0, 0, 0, 0.05);
-  color: ${nysaMartData.settings.secondaryColor};
-}
+    .commodity-detail-header.scrolled .back-button {
+      background: rgba(0, 0, 0, 0.05);
+      color: ${nysaMartData.settings.secondaryColor};
+    }
 
-.back-button:hover {
-  transform: translateX(-3px);
-}
+    .back-button:hover {
+      transform: translateX(-3px);
+    }
 
-.header-actions {
-  display: flex;
-  gap: 10px;
-}
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
 
-.share-button, .save-button {
-  background: rgba(0, 0, 0, 0.7);
-  border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
+    .share-button, .save-button {
+      background: rgba(0, 0, 0, 0.7);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
 
-.commodity-detail-header.scrolled .share-button,
-.commodity-detail-header.scrolled .save-button {
-  background: rgba(0, 0, 0, 0.05);
-  color: ${nysaMartData.settings.secondaryColor};
-}
+    .commodity-detail-header.scrolled .share-button,
+    .commodity-detail-header.scrolled .save-button {
+      background: rgba(0, 0, 0, 0.05);
+      color: ${nysaMartData.settings.secondaryColor};
+    }
 
-.share-button:hover, .save-button:hover {
-  transform: scale(1.1);
-}
+    .share-button:hover, .save-button:hover {
+      transform: scale(1.1);
+    }
 
-.commodity-gallery {
-  width: 100%;
-  background: #fff;
-  padding-top: 70px;
-  position: relative;
-}
+    .commodity-gallery {
+      width: 100%;
+      background: #fff;
+      padding-top: 70px;
+      position: relative;
+    }
 
-.main-image-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 30px;
-  box-sizing: border-box;
-}
+    .main-image-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px;
+      box-sizing: border-box;
+    }
 
-.main-image {
-  width: 100%;
-  height: auto;
-  max-height: 400px;
-  object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
+    .main-image {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
 
-.thumbnail-container {
-  display: flex;
-  gap: 10px;
-  padding: 15px 30px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  justify-content: center;
-}
+    .thumbnail-container {
+      display: flex;
+      gap: 10px;
+      padding: 15px 30px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      justify-content: center;
+    }
 
-.thumbnail-container::-webkit-scrollbar {
-  display: none;
-}
+    .thumbnail-container::-webkit-scrollbar {
+      display: none;
+    }
 
-.thumbnail {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: all 0.3s ease;
-}
+    .thumbnail {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
 
-.thumbnail:hover {
-  opacity: 1;
-  border-color: ${nysaMartData.settings.themeColor};
-}
+    .thumbnail:hover {
+      opacity: 1;
+      border-color: ${nysaMartData.settings.themeColor};
+    }
 
-.thumbnail.active {
-  opacity: 1;
-  border-color: ${nysaMartData.settings.themeColor};
-  box-shadow: 0 0 0 2px ${nysaMartData.settings.themeColor};
-}
+    .thumbnail.active {
+      opacity: 1;
+      border-color: ${nysaMartData.settings.themeColor};
+      box-shadow: 0 0 0 2px ${nysaMartData.settings.themeColor};
+    }
 
-/* UPDATED SECTION - Now always vertical layout */
-.commodity-info-container {
-  max-width: 800px; /* Reduced from 1200px for better readability */
-  margin: 0 auto;
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
+    .commodity-info-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
 
-.commodity-info {
-  background: #fff;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-  width: 100%;
-}
+    .commodity-info {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      width: 100%;
+    }
 
-.commodity-specifications {
-  background: #fff;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-  width: 100%;
-}
-/* END UPDATED SECTION */
+    .commodity-specifications {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      width: 100%;
+    }
 
-.commodity-category {
-  color: #6c757d;
-  font-size: 0.9em;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+    .commodity-category {
+      color: #6c757d;
+      font-size: 0.9em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-.commodity-info h1 {
-  font-size: 2em;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  color: ${nysaMartData.settings.secondaryColor};
-  line-height: 1.3;
-}
+    .commodity-info h1 {
+      font-size: 2em;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+      color: ${nysaMartData.settings.secondaryColor};
+      line-height: 1.3;
+    }
 
-.commodity-brand {
-  font-size: 1.1em;
-  color: #6c757d;
-  margin: 0 0 20px 0;
-  font-weight: 500;
-}
+    .commodity-brand {
+      font-size: 1.1em;
+      color: #6c757d;
+      margin: 0 0 20px 0;
+      font-weight: 500;
+    }
 
-.commodity-rating {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
+    .commodity-rating {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
 
-.stars {
-  color: #ffc107;
-  font-size: 1.2em;
-}
+    .stars {
+      color: #ffc107;
+      font-size: 1.2em;
+    }
 
-.review-count {
-  font-size: 0.9em;
-  color: #6c757d;
-}
+    .review-count {
+      font-size: 0.9em;
+      color: #6c757d;
+    }
 
-.price-container {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-}
+    .price-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
 
-.current-price {
-  font-size: 2em;
-  font-weight: 700;
-  color: ${nysaMartData.settings.secondaryColor};
-}
+    .current-price {
+      font-size: 2em;
+      font-weight: 700;
+      color: ${nysaMartData.settings.secondaryColor};
+    }
 
-.mrp {
-  font-size: 1.3em;
-  color: #6c757d;
-  text-decoration: line-through;
-}
+    .mrp {
+      font-size: 1.3em;
+      color: #6c757d;
+      text-decoration: line-through;
+    }
 
-.discount {
-  background: #FFD700;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-size: 1em;
-  font-weight: 600;
-}
+    .discount {
+      background: ${nysaMartData.settings.themeColor};
+      color: ${nysaMartData.settings.secondaryColor};
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 1em;
+      font-weight: 600;
+    }
 
-.commodity-meta {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
-  margin-bottom: 25px;
-}
+    .commodity-meta {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
 
-@media (min-width: 576px) {
-  .commodity-meta {
-    grid-template-columns: 1fr 1fr;
-  }
-}
+    @media (min-width: 576px) {
+      .commodity-meta {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
 
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.95em;
-  color: ${nysaMartData.settings.secondaryColor};
-  padding: 10px;
-  background: #f8f9fa;
-  border-radius: 8px;
-}
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95em;
+      color: ${nysaMartData.settings.secondaryColor};
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
 
-.meta-item i {
-  color: #6c757d;
-  font-size: 1.2em;
-}
+    .meta-item i {
+      color: #6c757d;
+      font-size: 1.2em;
+    }
 
-.commodity-description {
-  margin-bottom: 30px;
-  font-size: 1.05em;
-  line-height: 1.7;
-  color: #495057;
-  padding: 15px;
-  background: #f8f9fa;
-  border-radius: 8px;
-}
+    .commodity-description {
+      margin-bottom: 30px;
+      font-size: 1.05em;
+      line-height: 1.7;
+      color: #495057;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
 
-.commodity-actions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-top: 30px;
-}
+    .commodity-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 30px;
+      width: 100%;
+    }
 
-.measurement-selector {
-  display: flex;
-  align-items: center;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  overflow: hidden;
-  flex: 1;
-}
+    .measurement-selector {
+      display: flex;
+      align-items: center;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 180px;
+      width: 100%;
+    }
 
-.measurement-btn {
-  background: #f8f9fa;
-  border: none;
-  width: 40px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1em;
-  color: ${nysaMartData.settings.secondaryColor};
-  transition: all 0.2s ease;
-}
+    .measurement-btn {
+      background: #f8f9fa;
+      border: none;
+      width: 40px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1em;
+      color: ${nysaMartData.settings.secondaryColor};
+      transition: all 0.2s ease;
+    }
 
-.measurement-btn:hover {
-  background: #e9ecef;
-}
+    .measurement-btn:hover {
+      background: #e9ecef;
+    }
 
-.measurement {
-  width: 60px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 1.1em;
-}
+    .measurement {
+      width: 60px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1em;
+      flex-grow: 1;
+    }
 
-.bag-it-btn {
-  flex: 2;
-  background: ${nysaMartData.settings.themeColor};
-  color: ${nysaMartData.settings.secondaryColor};
-  border: none;
-  padding: 15px 20px;
-  border-radius: 8px;
-  font-size: 1em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+    .bag-it-btn {
+      background: ${nysaMartData.settings.themeColor};
+      color: ${nysaMartData.settings.secondaryColor};
+      border: none;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      flex-grow: 1;
+      min-width: 180px;
+    }
 
-.bag-it-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
+    .bag-it-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
 
-.commodity-specifications h2 {
-  font-size: 1.5em;
-  margin: 1.5em 0 0.8em;
-  margin-top: 0;
-  font-weight: 700;
-  color: ${nysaMartData.settings.secondaryColor};
-  border-bottom: 2px solid #f1f3f5;
-  padding-bottom: 10px;
-}
+    .commodity-specifications h2 {
+      font-size: 1.5em;
+      margin: 1.5em 0 0.8em;
+      margin-top: 0;
+      font-weight: 700;
+      color: ${nysaMartData.settings.secondaryColor};
+      border-bottom: 2px solid #f1f3f5;
+      padding-bottom: 10px;
+    }
 
-.commodity-specifications p {
-  margin-bottom: 1.5em;
-  color: #495057;
-  line-height: 1.7;
-}
+    .commodity-specifications p {
+      margin-bottom: 1.5em;
+      color: #495057;
+      line-height: 1.7;
+    }
 
-.commodity-specifications ul, .commodity-specifications ol {
-  margin-bottom: 1.5em;
-  padding-left: 1.5em;
-}
+    .commodity-specifications ul, .commodity-specifications ol {
+      margin-bottom: 1.5em;
+      padding-left: 1.5em;
+    }
 
-.commodity-specifications li {
-  margin-bottom: 0.8em;
-  color: #495057;
-  line-height: 1.6;
-}
+    .commodity-specifications li {
+      margin-bottom: 0.8em;
+      color: #495057;
+      line-height: 1.6;
+    }
 
-.commodity-specifications table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 2em 0;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  overflow: hidden;
-}
+    .commodity-specifications table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2em 0;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
 
-.commodity-specifications th, .commodity-specifications td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #dee2e6;
-}
+    .commodity-specifications th, .commodity-specifications td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #dee2e6;
+    }
 
-.commodity-specifications th {
-  background: #f8f9fa;
-  font-weight: 600;
-  color: ${nysaMartData.settings.secondaryColor};
-}
+    .commodity-specifications th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: ${nysaMartData.settings.secondaryColor};
+    }
 
-.commodity-specifications tr:hover {
-  background: #f8f9fa;
-}
+    .commodity-specifications tr:hover {
+      background: #f8f9fa;
+    }
 
-.supplier-info {
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 12px;
-  margin-top: 40px;
-  border-left: 4px solid ${nysaMartData.settings.themeColor};
-}
+    .supplier-info {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 40px;
+      border-left: 4px solid ${nysaMartData.settings.themeColor};
+    }
 
-.supplier-info h3 {
-  margin-top: 0;
-  color: ${nysaMartData.settings.secondaryColor};
-  font-size: 1.3em;
-  border-bottom: 1px solid #dee2e6;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-}
+    .supplier-info h3 {
+      margin-top: 0;
+      color: ${nysaMartData.settings.secondaryColor};
+      font-size: 1.3em;
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
 
-.supplier-info p {
-  margin-bottom: 12px;
-  line-height: 1.6;
-}
+    .supplier-info p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
 
-.supplier-info strong {
-  color: ${nysaMartData.settings.secondaryColor};
-}
+    .supplier-info strong {
+      color: ${nysaMartData.settings.secondaryColor};
+    }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .commodity-info-container {
-    padding: 20px 15px;
-  }
-  
-  .commodity-info h1 {
-    font-size: 1.6em;
-  }
-  
-  .current-price {
-    font-size: 1.6em;
-  }
-  
-  .mrp {
-    font-size: 1.2em;
-  }
-  
-  .commodity-meta {
-    grid-template-columns: 1fr;
-  }
-  
-  .commodity-actions {
-    flex-direction: column;
-  }
-  
-  .measurement-selector {
-    width: 100%;
-  }
-  
-  .bag-it-btn {
-    width: 100%;
-  }
-  
-  .main-image-container {
-    padding: 20px;
-  }
-  
-  .commodity-info, .commodity-specifications {
-    padding: 20px;
-  }
-}
+    @media (max-width: 768px) {
+      .commodity-info-container {
+        padding: 20px 15px;
+      }
+      
+      .commodity-info h1 {
+        font-size: 1.6em;
+      }
+      
+      .current-price {
+        font-size: 1.6em;
+      }
+      
+      .mrp {
+        font-size: 1.2em;
+      }
+      
+      .commodity-meta {
+        grid-template-columns: 1fr;
+      }
+      
+      .commodity-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      
+      .measurement-selector {
+        max-width: 150px;
+      }
+      
+      .bag-it-btn {
+        min-width: calc(100% - 165px);
+      }
+      
+      .main-image-container {
+        padding: 20px;
+      }
+      
+      .commodity-info, .commodity-specifications {
+        padding: 20px;
+      }
+    }
 
-@media (max-width: 576px) {
-  .main-image-container {
-    padding: 15px;
-  }
-  
-  .thumbnail {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .price-container {
-    gap: 10px;
-  }
-  
-  .commodity-description {
-    padding: 12px;
-  }
-}
-    `;
+    @media (max-width: 576px) {
+      .main-image-container {
+        padding: 15px;
+      }
+      
+      .thumbnail {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .price-container {
+        gap: 10px;
+      }
+      
+      .commodity-description {
+        padding: 12px;
+      }
+      
+      .commodity-actions {
+        flex-direction: column;
+      }
+      
+      .measurement-selector {
+        max-width: 100%;
+        width: 100%;
+      }
+      
+      .bag-it-btn {
+        min-width: 100%;
+        width: 100%;
+      }
+    }
+  `;
   document.head.appendChild(style);
 }
 
@@ -9414,14 +9380,17 @@ function showAddedToWaistToast(commodityName, measurement) {
 }
 
 function updateWaistUI() {
-  const waistCountElements = document.querySelectorAll('.waist-count');
-  const waistSubtotalElements = document.querySelectorAll('.waist-subtotal');
+  const cartCountElements = document.querySelectorAll('.cart-count, .fab-count');
+  const totalItems = procurementWaist.entries.reduce((sum, entry) => sum + entry.measurement, 0);
   
-  const totalEntries = procurementWaist.entries.reduce((sum, entry) => sum + entry.measurement, 0);
-  const totalAmount = procurementWaist.subtotal;
-  
-  waistCountElements.forEach(el => el.textContent = totalEntries);
-  waistSubtotalElements.forEach(el => el.textContent = `${nysaMartData.settings.currency}${totalAmount.toFixed(2)}`);
+  cartCountElements.forEach(el => {
+    el.textContent = totalItems;
+    if (totalItems > 0) {
+      el.style.display = 'flex';
+    } else {
+      el.style.display = 'none';
+    }
+  });
 }
 
 function showWaist() {
@@ -9431,7 +9400,7 @@ function showWaist() {
   waistOverlay.innerHTML = `
     <div class="waist-container">
       <div class="waist-header">
-        <h3>Your Procurement Waist</h3>
+        <h2>Your Procurement</h2>
         <button class="close-waist" onclick="closeWaist()">
           <i class="fas fa-times"></i>
         </button>
@@ -9483,7 +9452,9 @@ function showWaist() {
         
         ${procurementWaist.subtotal < procurementWaist.minOrderValue ? `
           <div class="min-order-warning">
-            Minimum procurement value is ${nysaMartData.settings.currency}${procurementWaist.minOrderValue}. Add ${nysaMartData.settings.currency}${(procurementWaist.minOrderValue - procurementWaist.subtotal).toFixed(2)} more to complete purchase.
+            <i class="fas fa-info-circle"></i>
+            Minimum procurement value is ${nysaMartData.settings.currency}${procurementWaist.minOrderValue}. 
+            Add ${nysaMartData.settings.currency}${(procurementWaist.minOrderValue - procurementWaist.subtotal).toFixed(2)} more to complete purchase.
           </div>
         ` : ''}
         
@@ -9496,6 +9467,10 @@ function showWaist() {
   
   document.body.appendChild(waistOverlay);
   addWaistStyles();
+  
+  setTimeout(() => {
+    waistOverlay.classList.add('active');
+  }, 10);
 }
 
 function addWaistStyles() {
@@ -9525,11 +9500,11 @@ function addWaistStyles() {
       width: 100%;
       max-width: 480px;
       height: 100%;
-      background: #fff;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       overflow-y: auto;
     }
     
@@ -9539,30 +9514,40 @@ function addWaistStyles() {
     
     .waist-header {
       padding: 20px;
-      border-bottom: 1px solid #dee2e6;
+      border-bottom: 1px solid #f0f0f0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: ${nysaMartData.settings.themeColor}10;
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
     
-    .waist-header h3 {
+    .waist-header h2 {
       margin: 0;
-      font-size: 1.4em;
+      font-size: 1.5em;
       color: ${nysaMartData.settings.secondaryColor};
-      font-weight: 600;
+      font-weight: 700;
     }
     
     .close-waist {
       background: transparent;
       border: none;
       color: #6c757d;
-      font-size: 1.2em;
+      font-size: 1.5em;
       cursor: pointer;
       transition: all 0.2s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
     }
     
     .close-waist:hover {
+      background: #f5f5f5;
       color: ${nysaMartData.settings.secondaryColor};
     }
     
@@ -9583,25 +9568,30 @@ function addWaistStyles() {
       display: flex;
       gap: 15px;
       padding: 15px;
-      border-bottom: 1px solid #f1f3f5;
+      margin-bottom: 15px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       position: relative;
       transition: all 0.3s ease;
     }
     
     .waist-entry:hover {
-      background: #f8f9fa;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
     
     .entry-image {
       width: 80px;
       height: 80px;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 8px;
       border: 1px solid #f1f3f5;
+      flex-shrink: 0;
     }
     
     .entry-details {
       flex: 1;
+      min-width: 0;
     }
     
     .entry-title {
@@ -9609,6 +9599,9 @@ function addWaistStyles() {
       font-size: 1em;
       color: ${nysaMartData.settings.secondaryColor};
       font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     .entry-price {
@@ -9618,9 +9611,11 @@ function addWaistStyles() {
     }
     
     .entry-measurement {
+      color: #000;
       display: flex;
       align-items: center;
       gap: 10px;
+      margin-top: 10px;
     }
     
     .measurement-btn {
@@ -9628,7 +9623,7 @@ function addWaistStyles() {
       height: 32px;
       border: 1px solid #dee2e6;
       background: #fff;
-      border-radius: 4px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -9638,6 +9633,7 @@ function addWaistStyles() {
     
     .measurement-btn:hover {
       background: #f1f3f5;
+      border-color: ${nysaMartData.settings.themeColor};
     }
     
     .measurement-btn:disabled {
@@ -9645,7 +9641,7 @@ function addWaistStyles() {
       cursor: not-allowed;
     }
     
-    .measurement {
+    .quantity-selector {
       min-width: 24px;
       text-align: center;
       font-weight: 600;
@@ -9656,27 +9652,41 @@ function addWaistStyles() {
       color: ${nysaMartData.settings.secondaryColor};
       margin-left: auto;
       align-self: center;
+      min-width: 60px;
+      text-align: right;
     }
     
     .remove-entry {
       position: absolute;
-      top: 15px;
-      right: 0;
-      background: transparent;
+      top: 10px;
+      right: 10px;
+      background: #f8f9fa;
       border: none;
       color: #6c757d;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       transition: all 0.2s ease;
     }
     
     .remove-entry:hover {
-      color: #dc3545;
+      background: #e53935;
+      color: white;
     }
     
     .waist-summary {
       padding: 20px;
-      border-top: 1px solid #dee2e6;
-      background: #f8f9fa;
+      border-top: 2px solid ${nysaMartData.settings.themeColor};
+      background: #ffffff;
+      position: sticky;
+      bottom: 0;
+      box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
     }
     
     .summary-row {
@@ -9684,24 +9694,60 @@ function addWaistStyles() {
       justify-content: space-between;
       margin-bottom: 12px;
       font-size: 0.95em;
+      color: #555;
+      padding: 8px 0;
+      border-bottom: 1px dashed #eee;
+    }
+    
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+    
+    .summary-label {
+      font-weight: 500;
+    }
+    
+    .summary-value {
+      font-weight: 600;
+      color: ${nysaMartData.settings.secondaryColor};
     }
     
     .summary-row.total {
       font-weight: 700;
       font-size: 1.2em;
-      margin: 20px 0;
-      padding-top: 10px;
-      border-top: 1px solid #dee2e6;
+      margin: 15px 0;
+      padding: 12px;
+      background: ${nysaMartData.settings.themeColor}15;
+      border-radius: 8px;
+      border: none;
+      color: ${nysaMartData.settings.secondaryColor};
+    }
+    
+    .summary-row.delivery {
+      color: ${procurementWaist.subtotal >= procurementWaist.freeDeliveryThreshold ? '#25a765' : '#d32f2f'};
+    }
+    
+    .summary-row.delivery .summary-value {
+      color: inherit;
     }
     
     .min-order-warning {
-      background: #fff3cd;
-      color: #856404;
-      padding: 12px;
-      border-radius: 6px;
+      background: #fff8e6;
+      color: #8a6d3b;
+      padding: 15px;
+      border-radius: 8px;
       font-size: 0.9em;
       margin: 15px 0;
       line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 4px solid #ffc107;
+    }
+    
+    .min-order-warning i {
+      font-size: 1.3em;
+      color: #ffc107;
     }
     
     .complete-purchase-btn {
@@ -9710,7 +9756,7 @@ function addWaistStyles() {
       background: #25D366;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 1em;
       font-weight: 600;
       cursor: pointer;
@@ -9721,17 +9767,24 @@ function addWaistStyles() {
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      margin-top: 10px;
     }
     
     .complete-purchase-btn:disabled {
       background: #6c757d;
       cursor: not-allowed;
+      opacity: 0.7;
     }
     
     .complete-purchase-btn:hover:not(:disabled) {
       background: #128C7E;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .summary-icon {
+      margin-right: 8px;
+      color: ${nysaMartData.settings.themeColor};
     }
     
     @media (max-width: 480px) {
@@ -9741,11 +9794,20 @@ function addWaistStyles() {
       
       .waist-entry {
         padding: 12px;
+        flex-wrap: wrap;
       }
       
       .entry-image {
         width: 70px;
         height: 70px;
+      }
+      
+      .entry-total {
+        margin-left: 0;
+        margin-top: 10px;
+        text-align: left;
+        width: 100%;
+        padding-left: 85px;
       }
       
       .complete-purchase-btn {
@@ -9755,10 +9817,6 @@ function addWaistStyles() {
     }
   `;
   document.head.appendChild(style);
-  
-  setTimeout(() => {
-    document.querySelector('.waist-overlay').classList.add('active');
-  }, 10);
 }
 
 function closeWaist() {
@@ -9803,7 +9861,7 @@ function adjustWaistMeasurement(commodityId, action) {
               <button class="measurement-btn minus" onclick="adjustWaistMeasurement('${entry.id}', 'decrease')">
                 <i class="fas fa-minus"></i>
               </button>
-              <span class="measurement">${entry.measurement}</span>
+              <span class="quantity-selector">${entry.measurement}</span>
               <button class="measurement-btn plus" onclick="adjustWaistMeasurement('${entry.id}', 'increase')">
                 <i class="fas fa-plus"></i>
               </button>
@@ -9893,17 +9951,18 @@ function filterCommodities(category) {
 
   commoditiesGrid.innerHTML = renderCommodityCards(filteredData);
 
-  const filterButtons = document.querySelectorAll('.filter-button');
-  filterButtons.forEach(button => {
-    if (button.getAttribute('data-category') === category) {
-      button.classList.add('active');
+  // Update active tab
+  const tabs = document.querySelectorAll('.category-tab');
+  tabs.forEach(tab => {
+    if (tab.textContent === category) {
+      tab.classList.add('active');
     } else {
-      button.classList.remove('active');
+      tab.classList.remove('active');
     }
   });
 }
 
-function performMartSearch(data, query, gridElement, filterButtons, renderFunction) {
+function performMartSearch(data, query, gridElement, renderFunction) {
   if (!query) {
     // If no query, show all commodities
     gridElement.innerHTML = renderFunction(data);
@@ -9969,13 +10028,15 @@ function initializeMartVoiceSearch(inputElement, callback) {
 
 function applyAdvancedFilters() {
   // Get all filter values
-  const priceMin = parseInt(document.getElementById('priceMin').value);
-  const priceMax = parseInt(document.getElementById('priceMax').value);
+  const priceMin = parseInt(document.getElementById('priceMin').value) || 0;
+  const priceMax = parseInt(document.getElementById('priceMax').value) || 5000;
   const discountCheckboxes = document.querySelectorAll('input[name="discount"]:checked');
   const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]:checked');
+  const categoryCheckboxes = document.querySelectorAll('input[name="category"]:checked');
   
   const selectedDiscounts = Array.from(discountCheckboxes).map(cb => parseInt(cb.value));
   const selectedAvailability = Array.from(availabilityCheckboxes).map(cb => cb.value);
+  const selectedCategories = Array.from(categoryCheckboxes).map(cb => cb.value);
   
   // Filter commodities
   let filteredCommodities = nysaMartData.commodities.filter(commodity => {
@@ -10003,6 +10064,11 @@ function applyAdvancedFilters() {
       return false;
     }
     
+    // Category filter
+    if (selectedCategories.length > 0 && !selectedCategories.includes(commodity.category)) {
+      return false;
+    }
+    
     return true;
   });
   
@@ -10020,8 +10086,8 @@ function resetFilters() {
   // Reset price range
   document.getElementById('priceMin').value = 0;
   document.getElementById('priceMax').value = 5000;
-  document.getElementById('minPriceValue').textContent = `${nysaMartData.settings.currency}0`;
-  document.getElementById('maxPriceValue').textContent = `${nysaMartData.settings.currency}5000+`;
+  document.getElementById('priceMinInput').value = '';
+  document.getElementById('priceMaxInput').value = '';
   
   // Reset checkboxes
   document.querySelectorAll('input[type="checkbox"]').forEach(cb => {

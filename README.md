@@ -44,7 +44,7 @@ body {
     z-index: 30;
     border-bottom: 2px solid var(--primary-color);
     backdrop-filter: blur(10px);
-    height: 60px; /* Maintain original header height */
+    height: 65px; /* Slightly increased to accommodate larger logo */
     display: flex;
     align-items: center;
 }
@@ -58,36 +58,38 @@ body {
     align-items: center;
 }
 
-/* Logo Image Styles */
+/* Logo Image Styles - Removes white background and increases size */
 .logo {
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 5px 0; /* Added padding for better spacing */
+    padding: 8px 0; /* Adjusted padding */
 }
 
 .logo-image {
-    height: 42px; /* Optimal size for mobile */
+    height: 48px; /* Increased mobile size */
     width: auto;
     object-fit: contain;
-    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3)); /* Enhances visibility */
+    image-rendering: -webkit-optimize-contrast; /* Improves rendering */
+    image-rendering: crisp-edges;
 }
 
 /* Tablet sizes */
 @media (min-width: 768px) {
     .logo-image {
-        height: 46px;
+        height: 52px;
     }
 }
 
 /* Desktop sizes */
 @media (min-width: 1024px) {
     .logo-image {
-        height: 50px;
+        height: 56px;
     }
 }
 
-
+/* Menu button - kept consistent */
 .menu-button {
     padding: 10px 20px;
     background: var(--accent-gradient);
@@ -104,9 +106,10 @@ body {
     justify-content: center;
 }
 
+/* Ensures chatbot container stays perfect */
 .chatbot-container {
     position: fixed;
-    top: 60px; /* Matches header height */
+    top: 65px; /* Matches adjusted header height */
     left: 0;
     right: 0;
     bottom: 60px; /* Matches bottom nav height */

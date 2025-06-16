@@ -33,7 +33,7 @@ body {
     overflow-x: hidden; 
 }
 
-/* Updated Header Styles */
+/* Header with increased height for larger logo */
 .header {
     padding: 0 16px;
     background: rgba(26, 26, 31, 0.95);
@@ -44,7 +44,7 @@ body {
     z-index: 30;
     border-bottom: 2px solid var(--primary-color);
     backdrop-filter: blur(10px);
-    height: 65px; /* Slightly increased to accommodate larger logo */
+    height: 70px; /* Increased to accommodate larger logo */
     display: flex;
     align-items: center;
 }
@@ -58,38 +58,45 @@ body {
     align-items: center;
 }
 
-/* Logo Image Styles - Removes white background and increases size */
+/* Logo container */
 .logo {
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 8px 0; /* Adjusted padding */
+    padding: 10px 0;
 }
 
+/* Significantly increased logo sizes */
 .logo-image {
-    height: 48px; /* Increased mobile size */
+    height: 55px; /* Mobile - 55px height */
     width: auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.3)); /* Enhances visibility */
-    image-rendering: -webkit-optimize-contrast; /* Improves rendering */
-    image-rendering: crisp-edges;
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.4));
+    image-rendering: -webkit-optimize-contrast;
 }
 
-/* Tablet sizes */
+/* Tablet - 60px */
 @media (min-width: 768px) {
     .logo-image {
-        height: 52px;
+        height: 60px;
     }
 }
 
-/* Desktop sizes */
+/* Desktop - 65px */
 @media (min-width: 1024px) {
     .logo-image {
-        height: 56px;
+        height: 65px;
     }
 }
 
-/* Menu button - kept consistent */
+/* Large Desktop - 70px */
+@media (min-width: 1440px) {
+    .logo-image {
+        height: 70px;
+    }
+}
+
+/* Menu button - proportional increase */
 .menu-button {
     padding: 10px 20px;
     background: var(--accent-gradient);
@@ -106,13 +113,13 @@ body {
     justify-content: center;
 }
 
-/* Ensures chatbot container stays perfect */
+/* Adjusted chatbot container */
 .chatbot-container {
     position: fixed;
-    top: 65px; /* Matches adjusted header height */
+    top: 70px; /* Matches new header height */
     left: 0;
     right: 0;
-    bottom: 60px; /* Matches bottom nav height */
+    bottom: 60px;
     background: rgba(26, 26, 31, 0.95);
     display: flex;
     flex-direction: column;

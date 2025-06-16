@@ -581,7 +581,7 @@ body > h1:first-of-type:not(.heading) {
       .menu-overlay { 
           display: none; 
           position: fixed; 
-          top: 60px; 
+          top: 70px; 
           left: 0; 
           right: 0; 
           bottom: 60px; 

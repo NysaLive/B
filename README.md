@@ -7574,9 +7574,382 @@ const nysaMartData = {
         expiryDate: "1 month from delivery",
         bulkDiscount: "5% OFF on 5+ sacks"
       }
+    },
+    // Fruits
+    {
+      category: "Fruits",
+      details: {
+        id: "FRUIT001",
+        title: "Fresh Bananas (Dozen)",
+        images: [
+          "https://m.media-amazon.com/images/I/61fZ+YAYGaL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/61fZ+YAYGaL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/61fZ+YAYGaL._SL1500_.jpg"
+        ],
+        description: "Fresh and ripe bananas, perfect for daily consumption",
+        brand: "Nature's Basket",
+        price: 45,
+        mrp: 60,
+        minQuantity: 5,
+        unit: "dozen",
+        stock: 120,
+        discount: "25% OFF",
+        distributor: "Fruit King Distributors",
+        rating: 4.1,
+        reviews: 210,
+        content: `
+          <h2>Commodity Specifications</h2>
+          <p>Fresh bananas sourced directly from farms, carefully ripened for perfect sweetness and texture.</p>
+          
+          <h2>Key Attributes</h2>
+          <ul>
+            <li>Naturally ripened</li>
+            <li>Rich in potassium and other nutrients</li>
+            <li>Perfect ripeness for immediate consumption</li>
+            <li>Carefully packed to prevent bruising</li>
+          </ul>
+        `,
+        tags: ["banana", "fresh fruits", "kela"],
+        deliveryTime: "Same day delivery",
+        returnPolicy: "No returns on fresh produce",
+        expiryDate: "3 days from delivery"
+      }
+    },
+    // Dairy
+    {
+      category: "Dairy",
+      details: {
+        id: "DAIRY001",
+        title: "Amul Taaza Homogenized Toned Milk (500ml x 12)",
+        images: [
+          "https://m.media-amazon.com/images/I/61tE4I7l1VL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/61tE4I7l1VL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/61tE4I7l1VL._SL1500_.jpg"
+        ],
+        description: "Pure and fresh toned milk with 3% fat",
+        brand: "Amul",
+        price: 360,
+        mrp: 420,
+        minQuantity: 1,
+        unit: "pack",
+        stock: 80,
+        discount: "14% OFF",
+        distributor: "Amul Distributors",
+        rating: 4.6,
+        reviews: 340,
+        content: `
+          <h2>Commodity Specifications</h2>
+          <p>Amul Taaza is homogenized toned milk which is pasteurized for purity and long life.</p>
+          
+          <h2>Key Attributes</h2>
+          <ul>
+            <li>3% fat content</li>
+            <li>Homogenized for uniform texture</li>
+            <li>Pasteurized for safety</li>
+            <li>Rich in calcium and protein</li>
+          </ul>
+        `,
+        tags: ["milk", "dairy", "amul"],
+        deliveryTime: "Same day delivery",
+        returnPolicy: "No returns on perishable items",
+        expiryDate: "6 months from manufacture"
+      }
+    },
+
+    // Beverages
+    {
+      category: "Beverages",
+      details: {
+        id: "BEV001",
+        title: "Tata Tea Gold Leaf Tea (1kg)",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "Premium blend tea leaves for rich taste and aroma",
+        brand: "Tata Tea",
+        price: 380,
+        mrp: 450,
+        minQuantity: 5,
+        unit: "packet",
+        stock: 60,
+        discount: "16% OFF",
+        distributor: "Tata Consumer Products",
+        rating: 4.4,
+        reviews: 215,
+        content: `<h2>Rich and aromatic tea leaves</h2><p>Perfect for morning refreshment</p>`,
+        tags: ["tea", "beverage", "tata"],
+        deliveryTime: "Next day delivery",
+        returnPolicy: "15 days replacement",
+        expiryDate: "12/2025",
+        bulkDiscount: "20% OFF on 10+ units"
+      }
+    },
+    {
+      category: "Beverages",
+      details: {
+        id: "BEV002",
+        title: "Red Label Natural Care Tea (500g)",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "Tea with natural ingredients for immunity care",
+        brand: "Brooke Bond",
+        price: 195,
+        mrp: 230,
+        minQuantity: 10,
+        unit: "packet",
+        stock: 85,
+        discount: "15% OFF",
+        distributor: "Hindustan Unilever",
+        rating: 4.3,
+        reviews: 189,
+        content: `<h2>Immunity boosting tea</h2><p>Contains tulsi and ashwagandha</p>`,
+        tags: ["tea", "immunity", "red label"],
+        deliveryTime: "Same day delivery",
+        returnPolicy: "15 days replacement",
+        expiryDate: "10/2025"
+      }
+    },
+
+    // Snacks
+    {
+      category: "Snacks",
+      details: {
+        id: "SNACK001",
+        title: "Haldiram's Nagpur Aloo Bhujia (400g)",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "Crispy potato snack with authentic Indian spices",
+        brand: "Haldiram's",
+        price: 85,
+        mrp: 100,
+        minQuantity: 20,
+        unit: "packet",
+        stock: 120,
+        discount: "15% OFF",
+        distributor: "Haldiram's Distributors",
+        rating: 4.6,
+        reviews: 342,
+        content: `<h2>Classic Indian snack</h2><p>Perfect with tea or as standalone</p>`,
+        tags: ["namkeen", "snacks", "haldiram"],
+        deliveryTime: "Next day delivery",
+        returnPolicy: "15 days replacement",
+        expiryDate: "6/2025",
+        bulkDiscount: "25% OFF on 50+ units"
+      }
+    },
+    {
+      category: "Snacks",
+      details: {
+        id: "SNACK002",
+        title: "Lay's India's Magic Masala Chips (180g x 12)",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "Potato chips with Indian spices flavor",
+        brand: "Lay's",
+        price: 600,
+        mrp: 720,
+        minQuantity: 5,
+        unit: "pack",
+        stock: 75,
+        discount: "17% OFF",
+        distributor: "PepsiCo India",
+        rating: 4.5,
+        reviews: 287,
+        content: `<h2>Popular potato chips</h2><p>Classic Indian flavor</p>`,
+        tags: ["chips", "snacks", "lays"],
+        deliveryTime: "Same day delivery",
+        returnPolicy: "15 days replacement",
+        expiryDate: "8/2025"
+      }
+    },
+
+    // Electronics
+    {
+      category: "Electronics",
+      details: {
+        id: "ELEC001",
+        title: "boAt Airdopes 141 Bluetooth Headset",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "Wireless earbuds with 42hr playback and ASAP charge",
+        brand: "boAt",
+        price: 1299,
+        mrp: 2990,
+        minQuantity: 10,
+        unit: "piece",
+        stock: 50,
+        discount: "57% OFF",
+        distributor: "Imagine Marketing",
+        rating: 4.3,
+        reviews: 12450,
+        content: `<h2>Premium audio experience</h2><p>With clear calls and immersive sound</p>`,
+        tags: ["earbuds", "bluetooth", "boat"],
+        deliveryTime: "2 days delivery",
+        returnPolicy: "7 days replacement",
+        warranty: "1 year manufacturer warranty"
+      }
+    },
+    {
+      category: "Electronics",
+      details: {
+        id: "ELEC002",
+        title: "Ambrane 10000mAh Power Bank",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "Fast charging power bank with dual output",
+        brand: "Ambrane",
+        price: 799,
+        mrp: 1499,
+        minQuantity: 5,
+        unit: "piece",
+        stock: 35,
+        discount: "47% OFF",
+        distributor: "Ambrane India",
+        rating: 4.2,
+        reviews: 8765,
+        content: `<h2>Reliable power backup</h2><p>For all your devices</p>`,
+        tags: ["powerbank", "charging", "ambrane"],
+        deliveryTime: "2 days delivery",
+        returnPolicy: "7 days replacement",
+        warranty: "1 year manufacturer warranty"
+      }
+    },
+
+    // Home Essentials
+    {
+      category: "Home Essentials",
+      details: {
+        id: "HOME001",
+        title: "Bajaj Majesty HM 01 750W Hand Mixer",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "Powerful hand mixer for all your baking needs",
+        brand: "Bajaj",
+        price: 1299,
+        mrp: 1995,
+        minQuantity: 5,
+        unit: "piece",
+        stock: 25,
+        discount: "35% OFF",
+        distributor: "Bajaj Electricals",
+        rating: 4.1,
+        reviews: 3421,
+        content: `<h2>Kitchen essential</h2><p>For mixing, whipping and beating</p>`,
+        tags: ["mixer", "kitchen", "bajaj"],
+        deliveryTime: "3 days delivery",
+        returnPolicy: "10 days replacement",
+        warranty: "2 years manufacturer warranty"
+      }
+    },
+    {
+      category: "Home Essentials",
+      details: {
+        id: "HOME002",
+        title: "Prestige Omega Deluxe Granite Kadai (3L)",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "Non-stick kadai for healthy cooking",
+        brand: "Prestige",
+        price: 1199,
+        mrp: 1799,
+        minQuantity: 5,
+        unit: "piece",
+        stock: 30,
+        discount: "33% OFF",
+        distributor: "TTK Prestige",
+        rating: 4.4,
+        reviews: 4567,
+        content: `<h2>Healthy cooking solution</h2><p>Granite non-stick coating</p>`,
+        tags: ["kadai", "cookware", "prestige"],
+        deliveryTime: "3 days delivery",
+        returnPolicy: "10 days replacement",
+        warranty: "2 years manufacturer warranty"
+      }
+    },
+
+    // Personal Care
+    {
+      category: "Personal Care",
+      details: {
+        id: "PCARE001",
+        title: "Dabur Red Toothpaste (200g x 12)",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "Ayurvedic toothpaste for complete oral care",
+        brand: "Dabur",
+        price: 600,
+        mrp: 840,
+        minQuantity: 5,
+        unit: "pack",
+        stock: 65,
+        discount: "29% OFF",
+        distributor: "Dabur India",
+        rating: 4.5,
+        reviews: 5432,
+        content: `<h2>Traditional oral care</h2><p>With 13 Ayurvedic ingredients</p>`,
+        tags: ["toothpaste", "oral care", "dabur"],
+        deliveryTime: "Next day delivery",
+        returnPolicy: "15 days replacement",
+        expiryDate: "12/2026"
+      }
+    },
+    {
+      category: "Personal Care",
+      details: {
+        id: "PCARE002",
+        title: "Parachute Advansed Coconut Hair Oil (600ml x 6)",
+        images: [
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg",
+          "https://m.media-amazon.com/images/I/71Y4hUfZkVL._SL1500_.jpg"
+        ],
+        description: "100% pure coconut oil for hair care",
+        brand: "Parachute",
+        price: 900,
+        mrp: 1200,
+        minQuantity: 5,
+        unit: "pack",
+        stock: 45,
+        discount: "25% OFF",
+        distributor: "Marico",
+        rating: 4.6,
+        reviews: 7654,
+        content: `<h2>Natural hair nourishment</h2><p>Deep conditions hair</p>`,
+        tags: ["hair oil", "coconut oil", "parachute"],
+        deliveryTime: "Next day delivery",
+        returnPolicy: "15 days replacement",
+        expiryDate: "24 months from manufacture"
+      }
     }
   ]
 };
+
 
 // Procurement Waist functionality
 let procurementWaist = {
@@ -7597,17 +7970,25 @@ function showMartOverlay() {
     document.body.appendChild(overlay);
   }
 
+  // Group commodities by category
   const categories = ['All', ...new Set(nysaMartData.categories)];
+  const commoditiesByCategory = {};
+  
+  nysaMartData.categories.forEach(category => {
+    commoditiesByCategory[category] = nysaMartData.commodities.filter(
+      commodity => commodity.category === category
+    );
+  });
 
   overlay.innerHTML = `
     <div class="mart-container">
-      <!-- Enhanced Header with Search Integrated -->
+      <!-- Enhanced Header with Search -->
       <div class="mart-header">
         <button class="back-button" onclick="hideMartOverlay()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <div class="search-container">
-          <input type="text" id="martSearchInput" placeholder="Search for products..." />
+          <input type="text" id="martSearchInput" placeholder="Search products..." />
           <button class="voice-search" id="martVoiceSearchButton">
             <i class="fas fa-microphone"></i>
           </button>
@@ -7618,7 +7999,7 @@ function showMartOverlay() {
         </button>
       </div>
       
-      <!-- Categories Tabs with Scroll -->
+      <!-- Categories Tabs -->
       <div class="categories-scroll-container">
         <div class="categories-tabs">
           ${categories.map(category => `
@@ -7630,19 +8011,70 @@ function showMartOverlay() {
         </div>
       </div>
       
-      <!-- Commodities Grid with Loading Skeleton -->
-      <div class="commodities-container">
-        <div class="commodities-header">
+      <!-- Featured Products Carousel -->
+      <div class="featured-section">
+        <div class="section-header">
           <h3>Featured Products</h3>
-          <button class="filter-button" onclick="toggleAdvancedFilters()">
-            <i class="fas fa-sliders-h"></i> Filters
-          </button>
+          <a href="#" class="see-all">See All</a>
         </div>
-        
-        <div class="commodities-grid" id="commoditiesGrid">
-          ${renderCommodityCards(nysaMartData.commodities)}
+        <div class="products-carousel">
+          ${nysaMartData.commodities.slice(0, 8).map(commodity => `
+            <div class="product-card" onclick="openCommodityDetail('${commodity.category}', '${commodity.details.id}')">
+              ${Math.random() > 0.7 ? `<div class="product-badge">Previously Bought</div>` : ''}
+              <div class="product-image-container">
+                <img src="${commodity.details.images[0]}" alt="${commodity.details.title}" class="product-image">
+                <button class="add-button" onclick="event.stopPropagation(); addToProcurementWaist('${commodity.category}', '${commodity.details.id}', event)">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <div class="delivery-time">${Math.floor(Math.random() * 30) + 5} MINS</div>
+              <h4 class="product-title">${commodity.details.title}</h4>
+              <div class="price-container">
+                <div class="discount-badge">${commodity.details.discount}</div>
+                <div class="original-price">${nysaMartData.settings.currency}${commodity.details.mrp}</div>
+              </div>
+              <div class="current-price">${nysaMartData.settings.currency}${commodity.details.price}</div>
+              <div class="exclusive-price">
+                <i class="fas fa-lock"></i>
+                ${nysaMartData.settings.currency}${(commodity.details.price * 0.97).toFixed(0)} SHOP FOR ${nysaMartData.settings.currency}5000
+              </div>
+            </div>
+          `).join('')}
         </div>
       </div>
+      
+      <!-- Category Sections -->
+      ${categories.filter(c => c !== 'All').map(category => `
+        <div class="category-section" id="category-${category.replace(/\s+/g, '-').toLowerCase()}">
+          <div class="section-header">
+            <h3>${category}</h3>
+            <a href="#" class="see-all">See All</a>
+          </div>
+          <div class="products-carousel">
+            ${commoditiesByCategory[category].slice(0, 6).map(commodity => `
+              <div class="product-card" onclick="openCommodityDetail('${commodity.category}', '${commodity.details.id}')">
+                <div class="product-image-container">
+                  <img src="${commodity.details.images[0]}" alt="${commodity.details.title}" class="product-image">
+                  <button class="add-button" onclick="event.stopPropagation(); addToProcurementWaist('${commodity.category}', '${commodity.details.id}', event)">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+                <div class="delivery-time">${Math.floor(Math.random() * 30) + 5} MINS</div>
+                <h4 class="product-title">${commodity.details.title}</h4>
+                <div class="price-container">
+                  <div class="discount-badge">${commodity.details.discount}</div>
+                  <div class="original-price">${nysaMartData.settings.currency}${commodity.details.mrp}</div>
+                </div>
+                <div class="current-price">${nysaMartData.settings.currency}${commodity.details.price}</div>
+                <div class="exclusive-price">
+                  <i class="fas fa-lock"></i>
+                  ${nysaMartData.settings.currency}${(commodity.details.price * 0.97).toFixed(0)} SHOP FOR ${nysaMartData.settings.currency}5000
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
       
       <!-- Floating Action Button for Cart -->
       <div class="fab-cart" onclick="showWaist()">
@@ -7650,129 +8082,7 @@ function showMartOverlay() {
         <span class="fab-count">${procurementWaist.entries.reduce((acc, entry) => acc + entry.measurement, 0)}</span>
       </div>
     </div>
-    
-    <!-- Enhanced Filters Panel -->
-    <div class="advanced-filters" id="advancedFilters">
-      <div class="filters-header">
-        <h3>Filters</h3>
-        <button class="close-filters" onclick="toggleAdvancedFilters()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      
-      <div class="filters-content">
-        <div class="filter-section">
-          <h4>Price Range (${nysaMartData.settings.currency})</h4>
-          <div class="price-range-container">
-            <div class="price-inputs">
-              <input type="number" id="priceMinInput" placeholder="Min" min="0" max="5000">
-              <span>-</span>
-              <input type="number" id="priceMaxInput" placeholder="Max" min="0" max="5000">
-            </div>
-            <div class="price-range-slider">
-              <input type="range" min="0" max="5000" value="0" step="100" id="priceMin">
-              <input type="range" min="0" max="5000" value="5000" step="100" id="priceMax">
-            </div>
-          </div>
-        </div>
-        
-        <div class="filter-section">
-          <h4>Discount</h4>
-          <div class="filter-options">
-            <label class="filter-option">
-              <input type="checkbox" name="discount" value="10" checked>
-              <span class="checkmark"></span>
-              <span>10% or more</span>
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="discount" value="20" checked>
-              <span class="checkmark"></span>
-              <span>20% or more</span>
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="discount" value="30">
-              <span class="checkmark"></span>
-              <span>30% or more</span>
-            </label>
-          </div>
-        </div>
-        
-        <div class="filter-section">
-          <h4>Availability</h4>
-          <div class="filter-options">
-            <label class="filter-option">
-              <input type="checkbox" name="availability" value="in-stock" checked>
-              <span class="checkmark"></span>
-              <span>In Stock</span>
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" name="availability" value="low-stock">
-              <span class="checkmark"></span>
-              <span>Low Stock</span>
-            </label>
-          </div>
-        </div>
-        
-        <div class="filter-section">
-          <h4>Categories</h4>
-          <div class="filter-options">
-            ${categories.filter(c => c !== 'All').map(category => `
-              <label class="filter-option">
-                <input type="checkbox" name="category" value="${category}" checked>
-                <span class="checkmark"></span>
-                <span>${category}</span>
-              </label>
-            `).join('')}
-          </div>
-        </div>
-      </div>
-      
-      <div class="filters-footer">
-        <button class="reset-filters" onclick="resetFilters()">Reset All</button>
-        <button class="apply-filters" onclick="applyAdvancedFilters()">Apply Filters</button>
-      </div>
-    </div>
   `;
-
-  // Initialize functionality
-  const searchInput = document.getElementById('martSearchInput');
-  const commoditiesGrid = document.getElementById('commoditiesGrid');
-  
-  const debouncedSearch = debounce((query) => {
-    performMartSearch(nysaMartData.commodities, query, commoditiesGrid, renderCommodityCards);
-  }, 300);
-
-  searchInput.addEventListener('input', (e) => {
-    debouncedSearch(e.target.value);
-  });
-
-  initializeMartVoiceSearch(searchInput, (query) => {
-    performMartSearch(nysaMartData.commodities, query, commoditiesGrid, renderCommodityCards);
-  });
-
-  // Price range functionality
-  const priceMin = document.getElementById('priceMin');
-  const priceMax = document.getElementById('priceMax');
-  const priceMinInput = document.getElementById('priceMinInput');
-  const priceMaxInput = document.getElementById('priceMaxInput');
-
-  priceMin.addEventListener('input', () => {
-    priceMinInput.value = priceMin.value;
-  });
-
-  priceMax.addEventListener('input', () => {
-    priceMaxInput.value = priceMax.value;
-  });
-
-  priceMinInput.addEventListener('input', () => {
-    priceMin.value = priceMinInput.value;
-  });
-
-  priceMaxInput.addEventListener('input', () => {
-    priceMax.value = priceMaxInput.value;
-  });
-
-  setTimeout(() => overlay.classList.add('active'), 10);
 
   // Add styles
   const style = document.createElement('style');
@@ -7784,7 +8094,7 @@ function showMartOverlay() {
       left: 0;
       right: 0;
       bottom: 0;
-      background: #ffffff;
+      background: #f8f9fa;
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
@@ -7795,7 +8105,7 @@ function showMartOverlay() {
       flex-direction: column;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
     .mart-overlay::-webkit-scrollbar {
@@ -7816,16 +8126,17 @@ function showMartOverlay() {
       display: flex;
       flex-direction: column;
       height: 100%;
-      background: #f5f5f5;
+      background: #f8f9fa;
+      padding-bottom: 80px;
     }
 
     /* Enhanced Header Styles */
     .mart-header {
-      padding: 12px 16px;
+      padding: 15px 20px;
       background: #ffffff;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -7856,13 +8167,14 @@ function showMartOverlay() {
       flex: 1;
       background: #f5f5f5;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 12px 16px;
       padding-right: 40px;
       color: ${nysaMartData.settings.secondaryColor};
       font-size: 14px;
       width: 100%;
       transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
     }
 
     #martSearchInput:focus {
@@ -7908,9 +8220,9 @@ function showMartOverlay() {
       font-weight: bold;
     }
 
-    /* Categories Scroll */
+    /* Categories Tabs */
     .categories-scroll-container {
-      padding: 8px 0;
+      padding: 12px 0;
       background: #ffffff;
       position: sticky;
       top: 60px;
@@ -7924,7 +8236,7 @@ function showMartOverlay() {
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      padding: 0 16px 8px;
+      padding: 0 20px 8px;
     }
 
     .categories-tabs::-webkit-scrollbar {
@@ -7936,7 +8248,7 @@ function showMartOverlay() {
       background: #f5f5f5;
       color: ${nysaMartData.settings.secondaryColor};
       border: none;
-      padding: 8px 16px;
+      padding: 10px 18px;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 500;
@@ -7956,80 +8268,84 @@ function showMartOverlay() {
       box-shadow: 0 2px 8px ${nysaMartData.settings.themeColor}80;
     }
 
-    /* Commodities Container */
-    .commodities-container {
-      flex: 1;
-      padding: 16px;
-      overflow-y: auto;
+    /* Section Styles */
+    .featured-section, .category-section {
+      padding: 20px;
     }
 
-    .commodities-header {
+    .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 15px;
     }
 
-    .commodities-header h3 {
+    .section-header h3 {
       margin: 0;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: 700;
       color: ${nysaMartData.settings.secondaryColor};
     }
 
-    .filter-button {
-      background: transparent;
-      border: 1px solid #e0e0e0;
-      color: ${nysaMartData.settings.secondaryColor};
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 13px;
+    .see-all {
+      color: ${nysaMartData.settings.themeColor};
+      font-size: 14px;
       font-weight: 500;
-      cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* Products Carousel */
+    .products-carousel {
       display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
+      gap: 15px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 5px 0;
+      scroll-snap-type: x mandatory;
     }
 
-    .filter-button:hover {
-      background: #f0f0f0;
+    .products-carousel::-webkit-scrollbar {
+      display: none;
     }
 
-    /* Commodities Grid */
-    .commodities-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 12px;
-    }
-
-    /* Enhanced Commodity Card */
-    .commodity-card {
+    /* Product Card */
+    .product-card {
+      flex: 0 0 160px;
       background: #ffffff;
       border-radius: 12px;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      border: 1px solid #f0f0f0;
-      cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      padding: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      scroll-snap-align: start;
       position: relative;
     }
 
-    .commodity-card:hover {
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      transform: translateY(-4px);
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #25a765;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      z-index: 2;
     }
 
-    .commodity-image-container {
+    .product-image-container {
       position: relative;
       width: 100%;
       height: 0;
       padding-bottom: 100%;
+      margin-bottom: 12px;
+      border-radius: 8px;
       overflow: hidden;
       background: #f9f9f9;
     }
 
-    .commodity-image {
+    .product-image {
       position: absolute;
       top: 0;
       left: 0;
@@ -8039,43 +8355,40 @@ function showMartOverlay() {
       transition: transform 0.3s ease;
     }
 
-    .commodity-badge {
+    .add-button {
       position: absolute;
-      top: 8px;
-      left: 8px;
-      background: #e53935;
-      color: white;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 600;
-      z-index: 2;
-    }
-
-    .commodity-discount {
-      position: absolute;
-      top: 8px;
+      bottom: 8px;
       right: 8px;
-      background: ${nysaMartData.settings.themeColor};
-      color: ${nysaMartData.settings.secondaryColor};
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 600;
-      z-index: 2;
-    }
-
-    .commodity-content {
-      padding: 12px;
+      width: 28px;
+      height: 28px;
+      background: #25a765;
+      color: white;
+      border: none;
+      border-radius: 50%;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: all 0.2s ease;
     }
 
-    .commodity-title {
-      font-size: 13px;
-      font-weight: 500;
-      margin: 0 0 4px 0;
+    .add-button:hover {
+      transform: scale(1.1);
+    }
+
+    .delivery-time {
+      font-size: 12px;
+      color: #25a765;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .product-title {
+      font-size: 14px;
+      font-weight: 600;
       color: ${nysaMartData.settings.secondaryColor};
+      margin: 0 0 8px 0;
       line-height: 1.3;
       height: 2.6em;
       overflow: hidden;
@@ -8085,79 +8398,42 @@ function showMartOverlay() {
       -webkit-box-orient: vertical;
     }
 
-    .commodity-brand {
-      font-size: 11px;
-      color: #666;
-      margin: 0 0 8px 0;
-    }
-
-    .commodity-price-container {
-      margin-bottom: 8px;
-    }
-
-    .commodity-price {
-      font-size: 14px;
-      font-weight: 600;
-      color: ${nysaMartData.settings.secondaryColor};
-    }
-
-    .commodity-mrp {
-      font-size: 11px;
-      color: #999;
-      text-decoration: line-through;
-      margin-left: 4px;
-    }
-
-    .commodity-unit {
-      font-size: 11px;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    .commodity-meta {
+    .price-container {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 11px;
-      color: #666;
-      margin-top: 8px;
+      gap: 6px;
+      margin-bottom: 4px;
     }
 
-    .commodity-stock {
-      color: #4caf50;
-      font-weight: 500;
-    }
-
-    .commodity-rating {
-      color: ${nysaMartData.settings.themeColor};
-      font-size: 11px;
-    }
-
-    .commodity-actions {
-      margin-top: 12px;
-    }
-
-    .bag-it-btn {
+    .discount-badge {
       background: ${nysaMartData.settings.themeColor};
       color: ${nysaMartData.settings.secondaryColor};
-      border: none;
-      padding: 8px;
-      border-radius: 6px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
       font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 12px;
-      width: 100%;
     }
 
-    .bag-it-btn:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px ${nysaMartData.settings.themeColor}80;
+    .original-price {
+      font-size: 12px;
+      color: #999;
+      text-decoration: line-through;
+    }
+
+    .current-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: ${nysaMartData.settings.secondaryColor};
+      margin-bottom: 4px;
+    }
+
+    .exclusive-price {
+      font-size: 11px;
+      color: #25a765;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500;
     }
 
     /* FAB Cart */
@@ -8200,220 +8476,14 @@ function showMartOverlay() {
       font-weight: bold;
     }
 
-    /* Enhanced Advanced Filters */
-    .advanced-filters {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      max-width: 380px;
-      background: #ffffff;
-      z-index: 2000;
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      display: flex;
-      flex-direction: column;
-      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .advanced-filters.active {
-      transform: translateX(0);
-    }
-
-    .filters-header {
-      padding: 20px;
-      border-bottom: 1px solid #f0f0f0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: ${nysaMartData.settings.themeColor}10;
-    }
-
-    .filters-header h3 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 600;
-      color: ${nysaMartData.settings.secondaryColor};
-    }
-
-    .close-filters {
-      background: transparent;
-      border: none;
-      color: #666;
-      font-size: 20px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .close-filters:hover {
-      color: ${nysaMartData.settings.secondaryColor};
-      transform: rotate(90deg);
-    }
-
-    .filters-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-    }
-
-    .filter-section {
-      margin-bottom: 24px;
-    }
-
-    .filter-section h4 {
-      margin: 0 0 16px 0;
-      font-size: 16px;
-      font-weight: 600;
-      color: ${nysaMartData.settings.secondaryColor};
-    }
-
-    .price-range-container {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .price-inputs {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .price-inputs input {
-      flex: 1;
-      padding: 10px 12px;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
-
-    .price-inputs input:focus {
-      border-color: ${nysaMartData.settings.themeColor};
-      box-shadow: 0 0 0 2px ${nysaMartData.settings.themeColor}40;
-    }
-
-    .price-range-slider {
-      padding: 0 8px;
-    }
-
-    .price-range-slider input[type="range"] {
-      width: 100%;
-      margin: 12px 0;
-      -webkit-appearance: none;
-      height: 4px;
-      background: #e0e0e0;
-      border-radius: 2px;
-    }
-
-    .price-range-slider input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 18px;
-      height: 18px;
-      background: ${nysaMartData.settings.themeColor};
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      transition: all 0.2s ease;
-    }
-
-    .price-range-slider input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-    }
-
-    .filter-options {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .filter-option {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      font-size: 14px;
-      color: ${nysaMartData.settings.secondaryColor};
-      padding: 8px 0;
-    }
-
-    .filter-option input {
-      width: 18px;
-      height: 18px;
-      accent-color: ${nysaMartData.settings.themeColor};
-    }
-
-    .checkmark {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 2px solid #e0e0e0;
-      border-radius: 4px;
-      position: relative;
-      transition: all 0.2s ease;
-    }
-
-    .filter-option input:checked ~ .checkmark {
-      background: ${nysaMartData.settings.themeColor};
-      border-color: ${nysaMartData.settings.themeColor};
-    }
-
-    .filter-option input:checked ~ .checkmark:after {
-      content: "✓";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: ${nysaMartData.settings.secondaryColor};
-      font-size: 12px;
-    }
-
-    .filters-footer {
-      padding: 16px;
-      border-top: 1px solid #f0f0f0;
-      display: flex;
-      gap: 12px;
-      background: #f9f9f9;
-    }
-
-    .reset-filters, .apply-filters {
-      flex: 1;
-      padding: 14px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 15px;
-      transition: all 0.2s ease;
-    }
-
-    .reset-filters {
-      background: transparent;
-      color: ${nysaMartData.settings.themeColor};
-      border: 2px solid ${nysaMartData.settings.themeColor};
-    }
-
-    .reset-filters:hover {
-      background: ${nysaMartData.settings.themeColor}10;
-    }
-
-    .apply-filters {
-      background: ${nysaMartData.settings.themeColor};
-      color: ${nysaMartData.settings.secondaryColor};
-      border: none;
-      box-shadow: 0 2px 8px ${nysaMartData.settings.themeColor}80;
-    }
-
-    .apply-filters:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-
     /* No Results State */
     .no-results {
-      text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 60px 20px;
-      grid-column: 1 / -1;
+      text-align: center;
     }
 
     .no-results-icon {
@@ -8435,65 +8505,18 @@ function showMartOverlay() {
       font-size: 14px;
     }
 
-    /* Loading Skeleton */
-    .skeleton-card {
-      background: #ffffff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-
-    .skeleton-image {
-      width: 100%;
-      height: 0;
-      padding-bottom: 100%;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-    }
-
-    .skeleton-content {
-      padding: 12px;
-    }
-
-    .skeleton-line {
-      height: 12px;
-      background: #f0f0f0;
-      margin-bottom: 8px;
-      border-radius: 4px;
-      animation: shimmer 1.5s infinite;
-    }
-
-    .skeleton-line.short {
-      width: 60%;
-    }
-
-    .skeleton-line.medium {
-      width: 80%;
-    }
-
-    @keyframes shimmer {
-      0% {
-        background-position: 200% 0;
-      }
-      100% {
-        background-position: -200% 0;
-      }
-    }
-
     /* Responsive Design */
     @media (min-width: 480px) {
-      .commodities-grid {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 16px;
+      .product-card {
+        flex: 0 0 180px;
       }
       
-      .commodity-title {
-        font-size: 14px;
-      }
-      
-      .commodity-price {
+      .product-title {
         font-size: 15px;
+      }
+      
+      .current-price {
+        font-size: 17px;
       }
     }
 
@@ -8506,81 +8529,237 @@ function showMartOverlay() {
         padding: 0 24px 8px;
       }
       
-      .commodities-container {
+      .featured-section, .category-section {
         padding: 24px;
       }
       
-      .commodities-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      .products-carousel {
         gap: 20px;
       }
       
-      .commodity-card {
+      .product-card {
+        flex: 0 0 200px;
+        padding: 15px;
         border-radius: 14px;
       }
       
-      .advanced-filters {
-        max-width: 400px;
+      .section-header h3 {
+        font-size: 20px;
+      }
+      
+      .see-all {
+        font-size: 15px;
       }
     }
 
     @media (min-width: 992px) {
-      .commodities-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      .products-carousel {
+        gap: 24px;
+      }
+      
+      .product-card {
+        flex: 0 0 220px;
       }
     }
 
     @media (min-width: 1200px) {
-      .commodities-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 24px;
+      .products-carousel {
+        gap: 30px;
+      }
+      
+      .product-card {
+        flex: 0 0 240px;
       }
     }
   `;
   document.head.appendChild(style);
+
+  // Initialize functionality
+  const searchInput = document.getElementById('martSearchInput');
+  const debouncedSearch = debounce((query) => {
+    performMartSearch(nysaMartData.commodities, query);
+  }, 300);
+
+  searchInput.addEventListener('input', (e) => {
+    debouncedSearch(e.target.value);
+  });
+
+  initializeMartVoiceSearch(searchInput, (query) => {
+    performMartSearch(nysaMartData.commodities, query);
+  });
+
+  setTimeout(() => overlay.classList.add('active'), 10);
 }
 
-function renderCommodityCards(filteredData) {
-  return filteredData.length > 0 ? 
-    filteredData.map(commodity => `
-      <div class="commodity-card" onclick="openCommodityDetail('${commodity.category}', '${commodity.details.id}')">
-        <div class="commodity-image-container">
-          <img src="${commodity.details.images[0]}" alt="${commodity.details.title}" class="commodity-image" loading="lazy">
-          ${commodity.details.stock < 10 ? `<span class="commodity-badge">Limited</span>` : ''}
-          ${commodity.details.discount ? `<span class="commodity-discount">${commodity.details.discount}</span>` : ''}
+function performMartSearch(query) {
+  if (!query) {
+    // Show all categories if no query
+    document.querySelectorAll('.category-section').forEach(section => {
+      section.style.display = 'block';
+    });
+    
+    // Hide no results and search results sections
+    const noResultsSection = document.getElementById('no-results-section');
+    if (noResultsSection) {
+      noResultsSection.style.display = 'none';
+    }
+    
+    const searchResultsSection = document.getElementById('search-results-section');
+    if (searchResultsSection) {
+      searchResultsSection.remove();
+    }
+    return;
+  }
+
+  const lowerCaseQuery = query.toLowerCase();
+  
+  // Hide all category sections
+  document.querySelectorAll('.category-section').forEach(section => {
+    section.style.display = 'none';
+  });
+  
+  // Show only matching products
+  const matchingCommodities = nysaMartData.commodities.filter(commodity => {
+    return (
+      commodity.details.title.toLowerCase().includes(lowerCaseQuery) ||
+      commodity.details.brand.toLowerCase().includes(lowerCaseQuery) ||
+      commodity.category.toLowerCase().includes(lowerCaseQuery) ||
+      (commodity.details.tags && commodity.details.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery)))
+    );
+  });
+  
+  if (matchingCommodities.length > 0) {
+    // Create a search results section
+    let searchResultsSection = document.getElementById('search-results-section');
+    
+    if (!searchResultsSection) {
+      searchResultsSection = document.createElement('div');
+      searchResultsSection.id = 'search-results-section';
+      searchResultsSection.className = 'category-section';
+      searchResultsSection.innerHTML = `
+        <div class="section-header">
+          <h3>Search Results</h3>
         </div>
-        <div class="commodity-content">
-          <h3 class="commodity-title">${commodity.details.title}</h3>
-          <p class="commodity-brand">${commodity.details.brand}</p>
-          <div class="commodity-price-container">
-            <span class="commodity-price">${nysaMartData.settings.currency}${commodity.details.price}</span>
-            <span class="commodity-mrp">${nysaMartData.settings.currency}${commodity.details.mrp}</span>
-            <p class="commodity-unit">Min: ${commodity.details.minQuantity} ${commodity.details.unit}</p>
-          </div>
-          <div class="commodity-meta">
-            <span class="commodity-stock">${commodity.details.stock} in stock</span>
-            <span class="commodity-rating">
-              ${'<i class="fas fa-star"></i>'.repeat(Math.floor(commodity.details.rating))}
-              ${'<i class="far fa-star"></i>'.repeat(5 - Math.ceil(commodity.details.rating))}
-            </span>
-          </div>
-          <div class="commodity-actions">
-            <button class="bag-it-btn" onclick="event.stopPropagation(); addToProcurementWaist('${commodity.category}', '${commodity.details.id}', event)">
-              <i class="fas fa-shopping-bag"></i> Add
-            </button>
-          </div>
+        <div class="products-carousel" id="search-results-carousel"></div>
+      `;
+      document.querySelector('.mart-container').insertBefore(searchResultsSection, document.querySelector('.category-section'));
+    }
+    
+    // Populate search results
+    const searchResultsCarousel = document.getElementById('search-results-carousel');
+    searchResultsCarousel.innerHTML = matchingCommodities.map(commodity => `
+      <div class="product-card" onclick="openCommodityDetail('${commodity.category}', '${commodity.details.id}')">
+        <div class="product-image-container">
+          <img src="${commodity.details.images[0]}" alt="${commodity.details.title}" class="product-image">
+          <button class="add-button" onclick="event.stopPropagation(); addToProcurementWaist('${commodity.category}', '${commodity.details.id}', event)">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+        <div class="delivery-time">${Math.floor(Math.random() * 30) + 5} MINS</div>
+        <h4 class="product-title">${commodity.details.title}</h4>
+        <div class="price-container">
+          <div class="discount-badge">${commodity.details.discount}</div>
+          <div class="original-price">${nysaMartData.settings.currency}${commodity.details.mrp}</div>
+        </div>
+        <div class="current-price">${nysaMartData.settings.currency}${commodity.details.price}</div>
+        <div class="exclusive-price">
+          <i class="fas fa-lock"></i>
+          ${nysaMartData.settings.currency}${(commodity.details.price * 0.97).toFixed(0)} SHOP FOR ${nysaMartData.settings.currency}5000
         </div>
       </div>
-    `).join('') : 
-    `
-    <div class="no-results">
-      <div class="no-results-icon">
-        <i class="fas fa-box-open"></i>
-      </div>
-      <h3>No Products Found</h3>
-      <p>Try adjusting your search or filters</p>
-    </div>
-    `;
+    `).join('');
+    
+    searchResultsSection.style.display = 'block';
+    
+    // Hide no results section if it exists
+    const noResultsSection = document.getElementById('no-results-section');
+    if (noResultsSection) {
+      noResultsSection.style.display = 'none';
+    }
+  } else {
+    // Show no results message
+    let noResultsSection = document.getElementById('no-results-section');
+    
+    if (!noResultsSection) {
+      noResultsSection = document.createElement('div');
+      noResultsSection.id = 'no-results-section';
+      noResultsSection.className = 'no-results';
+      noResultsSection.innerHTML = `
+        <div class="no-results-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h3>No Products Found</h3>
+        <p>Try adjusting your search query</p>
+      `;
+      document.querySelector('.mart-container').insertBefore(noResultsSection, document.querySelector('.category-section'));
+    }
+    
+    noResultsSection.style.display = 'flex';
+    
+    // Remove search results section if it exists
+    const searchResultsSection = document.getElementById('search-results-section');
+    if (searchResultsSection) {
+      searchResultsSection.remove();
+    }
+  }
+}
+
+function filterCommodities(category) {
+  if (category === 'All') {
+    // Show all categories
+    document.querySelectorAll('.category-section').forEach(section => {
+      section.style.display = 'block';
+    });
+    
+    // Remove search results if any
+    const searchResultsSection = document.getElementById('search-results-section');
+    if (searchResultsSection) {
+      searchResultsSection.remove();
+    }
+    
+    const noResultsSection = document.getElementById('no-results-section');
+    if (noResultsSection) {
+      noResultsSection.remove();
+    }
+    
+    // Clear search input
+    document.getElementById('martSearchInput').value = '';
+  } else {
+    // Hide all categories except the selected one
+    document.querySelectorAll('.category-section').forEach(section => {
+      section.style.display = 'none';
+    });
+    
+    // Show the selected category
+    const categorySection = document.getElementById(`category-${category.replace(/\s+/g, '-').toLowerCase()}`);
+    if (categorySection) {
+      categorySection.style.display = 'block';
+    }
+    
+    // Remove search results if any
+    const searchResultsSection = document.getElementById('search-results-section');
+    if (searchResultsSection) {
+      searchResultsSection.remove();
+    }
+    
+    const noResultsSection = document.getElementById('no-results-section');
+    if (noResultsSection) {
+      noResultsSection.remove();
+    }
+  }
+  
+  // Update active tab
+  const tabs = document.querySelectorAll('.category-tab');
+  tabs.forEach(tab => {
+    if (tab.textContent === category) {
+      tab.classList.add('active');
+    } else {
+      tab.classList.remove('active');
+    }
+  });
+  
+  // Scroll to top
+  scrollToTop();
 }
 
 function openCommodityDetail(category, commodityId) {
@@ -9941,49 +10120,6 @@ function completePurchase() {
   closeWaist();
 }
 
-function filterCommodities(category) {
-  const commoditiesGrid = document.getElementById('commoditiesGrid');
-  let filteredData = nysaMartData.commodities;
-
-  if (category !== 'All') {
-    filteredData = filteredData.filter(commodity => commodity.category === category);
-  }
-
-  commoditiesGrid.innerHTML = renderCommodityCards(filteredData);
-
-  // Update active tab
-  const tabs = document.querySelectorAll('.category-tab');
-  tabs.forEach(tab => {
-    if (tab.textContent === category) {
-      tab.classList.add('active');
-    } else {
-      tab.classList.remove('active');
-    }
-  });
-}
-
-function performMartSearch(data, query, gridElement, renderFunction) {
-  if (!query) {
-    // If no query, show all commodities
-    gridElement.innerHTML = renderFunction(data);
-    return;
-  }
-
-  const lowerCaseQuery = query.toLowerCase();
-  const filteredData = data.filter(commodity => {
-    return (
-      commodity.details.title.toLowerCase().includes(lowerCaseQuery) ||
-      commodity.details.brand.toLowerCase().includes(lowerCaseQuery) ||
-      commodity.category.toLowerCase().includes(lowerCaseQuery) ||
-      (commodity.details.tags && commodity.details.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery)))
-    );
-  });
-
-  gridElement.innerHTML = filteredData.length > 0 
-    ? renderFunction(filteredData)
-    : '<div class="no-results">No commodities found matching your search.</div>';
-}
-
 function initializeMartVoiceSearch(inputElement, callback) {
   const voiceButton = document.getElementById('martVoiceSearchButton');
   if (!voiceButton) return;
@@ -10026,79 +10162,6 @@ function initializeMartVoiceSearch(inputElement, callback) {
   }
 }
 
-function applyAdvancedFilters() {
-  // Get all filter values
-  const priceMin = parseInt(document.getElementById('priceMin').value) || 0;
-  const priceMax = parseInt(document.getElementById('priceMax').value) || 5000;
-  const discountCheckboxes = document.querySelectorAll('input[name="discount"]:checked');
-  const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]:checked');
-  const categoryCheckboxes = document.querySelectorAll('input[name="category"]:checked');
-  
-  const selectedDiscounts = Array.from(discountCheckboxes).map(cb => parseInt(cb.value));
-  const selectedAvailability = Array.from(availabilityCheckboxes).map(cb => cb.value);
-  const selectedCategories = Array.from(categoryCheckboxes).map(cb => cb.value);
-  
-  // Filter commodities
-  let filteredCommodities = nysaMartData.commodities.filter(commodity => {
-    // Price filter
-    if (commodity.details.price < priceMin || commodity.details.price > priceMax) {
-      return false;
-    }
-    
-    // Discount filter
-    if (selectedDiscounts.length > 0) {
-      const discount = Math.round(((commodity.details.mrp - commodity.details.price) / commodity.details.mrp) * 100);
-      if (!selectedDiscounts.some(minDiscount => discount >= minDiscount)) {
-        return false;
-      }
-    }
-    
-    // Availability filter
-    if (selectedAvailability.length > 0) {
-      if (selectedAvailability.includes('in-stock') && commodity.details.stock > 10) {
-        return true;
-      }
-      if (selectedAvailability.includes('low-stock') && commodity.details.stock <= 10 && commodity.details.stock > 0) {
-        return true;
-      }
-      return false;
-    }
-    
-    // Category filter
-    if (selectedCategories.length > 0 && !selectedCategories.includes(commodity.category)) {
-      return false;
-    }
-    
-    return true;
-  });
-  
-  // Update grid
-  const commoditiesGrid = document.getElementById('commoditiesGrid');
-  commoditiesGrid.innerHTML = filteredCommodities.length > 0 
-    ? renderCommodityCards(filteredCommodities)
-    : '<div class="no-results">No commodities match all your filters.</div>';
-  
-  // Close filters
-  toggleAdvancedFilters();
-}
-
-function resetFilters() {
-  // Reset price range
-  document.getElementById('priceMin').value = 0;
-  document.getElementById('priceMax').value = 5000;
-  document.getElementById('priceMinInput').value = '';
-  document.getElementById('priceMaxInput').value = '';
-  
-  // Reset checkboxes
-  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-    cb.checked = true;
-  });
-  
-  // Reset grid
-  const commoditiesGrid = document.getElementById('commoditiesGrid');
-  commoditiesGrid.innerHTML = renderCommodityCards(nysaMartData.commodities);
-}
-
 function hideMartOverlay() {
   const overlay = document.getElementById('martOverlay');
   if (overlay) {
@@ -10136,11 +10199,6 @@ function shareCommodity(title) {
   }
 }
 
-function toggleAdvancedFilters() {
-  const filters = document.getElementById('advancedFilters');
-  filters.classList.toggle('active');
-}
-
 // Utility function for debouncing
 function debounce(func, wait) {
   let timeout;
@@ -10166,6 +10224,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
 
 const transportData = [
   // Auto Rickshaw
